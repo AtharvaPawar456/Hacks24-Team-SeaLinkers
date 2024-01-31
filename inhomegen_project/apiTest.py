@@ -7,7 +7,7 @@ from io import BytesIO
 # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
 
 # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
-server_url = "https://a3db-203-212-24-36.ngrok-free.app/"
+server_url = "https://b391-104-196-248-71.ngrok-free.app/"
 api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
 
 # Example payload for retro style

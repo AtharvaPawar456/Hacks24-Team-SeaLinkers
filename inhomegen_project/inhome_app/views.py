@@ -188,7 +188,7 @@ def generate(request):
         # path = testpath(text="hello world", img_id=12)
         
         # Create a new node
-        # ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
+        ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
 
         # Redirect to a success page or another view
         return redirect('dashboard_v2', proj_name=proj_name)
@@ -362,7 +362,7 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
     # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
 
     # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
-    server_url = "https://7320-34-125-152-171.ngrok-free.app/"
+    server_url = "https://64a8-35-236-168-131.ngrok-free.app/"
     api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
 
 
@@ -373,9 +373,9 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
     # Example usage:
     # input_prompt = "Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery, gray pallet minimalistic: tv, sofa, table"
 
-    # neg_prompt = "blurry"
+    # neg_prompt = "blurry"         
 
-    style_templateslist_id = 1  # Selecting "cozy" from style_templateslist
+    style_templateslist_id = 1  # Selecting "cozy" from style_templateslist 
     look_id = 2  # Selecting "minimalistic and sleek" from looks
     styles_id = 3  # Selecting "industrial" from styles
     artists_id = 1  # Selecting "interior_designer2" from artists
@@ -418,7 +418,7 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
                                         look_id, styles_id, artists_id, color_palette_id, artistic_params_id)
 
     print("prompt :", prompt)
-    
+
     # Example payload for retro style
     payload_retro = {
         "input_prompt": prompt,
@@ -434,45 +434,45 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
             artists_id = request.json['artists_id']
     '''
 
-    # try:
-    #     # Make a POST request to the API
-    #     response_retro = requests.post(api_url, json=payload_retro)
-    #     # print(response_retro.json())
+    try:
+        # Make a POST request to the API
+        response_retro = requests.post(api_url, json=payload_retro)
+        # print(response_retro.json())
 
-    #     # Check if the request was successful (status code 200)
-    #     if response_retro.status_code == 200:
-    #         print(f"Image generated successfully for prompt : {payload_retro['input_prompt']}.")
-    #         print("message : ", response_retro.json()["message"])
-    #         print("full_prompt : ", response_retro.json()["full_prompt"])
+        # Check if the request was successful (status code 200)
+        if response_retro.status_code == 200:
+            print(f"Image generated successfully for prompt : {payload_retro['input_prompt']}.")
+            print("message : ", response_retro.json()["message"])
+            print("full_prompt : ", response_retro.json()["full_prompt"])
 
 
-    #         # Create the output directory if it doesn't exist
-    #         # file_path = media_full_path + "\\" + img_id + "genimg.jpeg"
-    #         file_path = os.path.join(media_full_path, f"{str(img_id)}genimg.jpeg")
+            # Create the output directory if it doesn't exist
+            # file_path = media_full_path + "\\" + img_id + "genimg.jpeg"
+            file_path = os.path.join(media_full_path, f"{str(img_id)}genimg.jpeg")
 
-    #         print("api download - video file_path: ", file_path)
+            print("api download - video file_path: ", file_path)
 
-    #         # os.makedirs(file_path, exist_ok=True)
-    #         # saved_img_path = "current_new.jpeg"
-    #         # image_path = response_retro.json()["image_path"]
+            # os.makedirs(file_path, exist_ok=True)
+            # saved_img_path = "current_new.jpeg"
+            # image_path = response_retro.json()["image_path"]
 
-    #         # Save the base64-encoded image to a file in JPEG format
-    #         encoded_image = response_retro.json()["image_base64"]
-    #         image_data = base64.b64decode(encoded_image)
-    #         image = Image.open(BytesIO(image_data))
-    #         image.save(file_path)
+            # Save the base64-encoded image to a file in JPEG format
+            encoded_image = response_retro.json()["image_base64"]
+            image_data = base64.b64decode(encoded_image)
+            image = Image.open(BytesIO(image_data))
+            image.save(file_path)
 
             
-    #         print(f"Image saved at: {file_path}")
-    #         return file_path
+            print(f"Image saved at: {file_path}")
+            return file_path
 
-    #         # image.show()        # Open and display the saved image
+            # image.show()        # Open and display the saved image
 
-    #     else:
-    #         print("Error:", response_retro.json())
+        else:
+            print("Error:", response_retro.json())
 
-    # except Exception as e:
-    #     print("Error:", str(e))
+    except Exception as e:
+        print("Error:", str(e))
 
 
 

@@ -70,7 +70,8 @@
           <label for="prompt" class="mt-6 text-yellow-500"
             ><i class="fa-solid fa-terminal mr-2 text-green-400"></i
             >Prompt:</label
-          >
+          > 
+          <i class="fa-solid fa-microphone text-gray-600 hover:text-blue-400"></i>
           <textarea
             id="prompt"
             name="prompt"
@@ -250,6 +251,9 @@
             <div class="text-left text-xs">
               <b>Prompt : <br /></b>{{ iData.prompt }}
             </div>
+            
+            <div class="text-left text-xs text-yellow-400 text-center p-2 border w-2/6 mt-4">Revision</div>
+
           </div>
         </div>
 
@@ -269,6 +273,7 @@
       toggleButton.addEventListener('click', function () {
           // Toggle the 'hidden' class on the content
           hiddenContent.classList.toggle('hidden');
+
       });
   });
 </script>
