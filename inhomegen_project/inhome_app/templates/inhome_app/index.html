@@ -1,211 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends 'inhome_app/base.html' %} {% block title %}inHomeGen | Generator{% endblock %}
+<div>{% block content %} {% load static %}</div>
 
-    {% load static %}
+<!-- Body -->
+<section class="grid grid-cols-4 gap-4 mt-20">
+  <!-- Right Side : prompt input-->
+  <div class="border text-gray-400 p-4">
+    <div class="text-center text-xl text-yellow-500 font-bold">
+      <i class="fa-solid fa-image mr-2"></i> text2img
+    </div>
 
-    <link rel="icon" type="image/png" href="{% static 'inhome_app\setup\logo.png' %}">
+    <div class="p-4 text-xl mt-4 border rounded-md">
+      <div class="mb-2 text-yellow-500 text-center">
+        <i class="fa-solid fa-layer-group mr-2"></i>Project Details
+      </div>
 
+      <form action="{% url 'generate' %}" method="POST" class="px-2">
+        {% csrf_token %}
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <!-- project name -->
+        <label
+          for="proj_name"
+          class="block mb-2 text-sm font-medium text-gray-400"
+          >Enter Project Name:</label
+        >
+        <input
+          type="text"
+          id="text"
+          name="proj_name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+          placeholder="dream interior"
+          value="{{ proj_name }}"
+          required
+        />
 
-    <!-- <script src="static\tailwindcss.js"></script> -->
-    <script src="{% static 'inhome_app\setup\tailwindcss.js' %}"></script>
-
-    <style>
-        .body-container {
-            height: 27rem;
-            overflow-y: auto;
-            scrollbar-width: thin; /* Firefox */
-            scrollbar-color: #656161 #686464; /* Firefox */
-    
-            /* Webkit (Chrome, Safari) */
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-    
-            &::-webkit-scrollbar-thumb {
-                background-color: #555353;
-            }
-    
-            &::-webkit-scrollbar-track {
-                background-color: #f0f0f0;
-            }
-        }
-    </style>
-
-    <title>inHomeGen</title>
-</head>
-<body class="body-container bg-black font-mono">
-    
-    <!-- Navbar - fixed -->
-    <section class="font-mono z-50">
-        <nav class="fixed z-50 bg-black top-0 left-0 w-full py-2 px-4 flex items-center justify-between border shadow-md">
-            <!-- Brand Logo and Name on the Left -->
-            <a class="flex items-center space-x-2" href="#">
-              <img src="static/logo.png" alt="yerunkar corner Logo" class="h-12 w-12 rounded-full border-2"> 
-                <!-- Adjust height and width as needed -->
-              <span class="text-2xl font-bold text-gray-200 hover:text-gray-400">inHomeGen</span>
-            </a>
-        
-            <!-- Tabs on the Right -->
-            <div class="flex items-center space-x-10">
-              <a href="gallery.html" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Gallary</a>
-              <a href="index.html" class="text-xl text-black font-bold hover:underline border p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">Generator</a>
-              <a href="#" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Support</a>
-            
-              {% if user.is_authenticated %}
-              <a href="{% url 'user_logout' %}" class="col-span-2">
-                <div
-                  class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-                >
-                  <i class="fa-solid fa-user"></i> {{ user.username |title }}
-                  <i class="fa-solid fa-right-from-bracket ml-2"></i>
-                </div>
-              </a>
-              {% else %}
-              <div></div>
-              <div></div>
-              <a href="{% url 'user_login' %}">
-                <div
-                  class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-                >
-                  <i class="fa-solid fa-user"></i> Login
-                </div>
-              </a>
-              {% endif %}
-            </div>
-
-            <!-- Tabs on the Right - responsive -->
-            <!-- <div class="hidden md:flex items-center space-x-10">
-                <a href="#software" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
-                <a href="#hardware" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
-                <a href="#contact" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
-            </div> -->
-
-           <!-- Mobile Menu Toggle (Hamburger Icon) -->
-            <!-- <div class="md:hidden">
-            <button id="mobileMenuToggle" class="text-xl text-gray-600 hover:text-gray-900">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                </svg>
-            </button>
-            </div> -->
-
-          <!-- Mobile Menu -->
-          <!-- <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white py-2 px-4 shadow-md">
-              <a href="#software" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
-              <a href="#hardware" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
-              <a href="#contact" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
-          </div> -->
-
-          </nav>
-    </section>
-
-    <!-- Body -->
-    <section class="grid grid-cols-4 gap-4 mt-20">
-        
-        <!-- Right Side : prompt input-->
-        <div class="border text-gray-400 p-4">
-            <div class="text-center text-xl text-yellow-500 font-bold"><i class="fa-solid fa-image mr-2"></i> text2img</div>
-
-            <div class="p-4 text-xl mt-4 border rounded-md">
-              <div class="mb-2 text-yellow-500 text-center"><i class="fa-solid fa-layer-group mr-2"></i>Project Details</div>
-              
-              <form action="{% url 'generate' %}" method="POST" class="px-2">
-                    {% csrf_token %}
-                
-                    <!-- project name -->
-                    <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
-                    <input type="text" id="text" name="proj_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" placeholder="dream interior" value="{{ proj_name }}" required>
-                    
-                    <!-- room -->
-                    <div class="my-4">
-                      <label for="selectedroom" class="mr-1">Select Room :</label>
-                      <select id="selectedroom" name="selectedroom" class="bg-black text-sm border rounded-sm p-1">
-                        <option value="Hall">Hall</option>
-                        <option value="Kitchen">Kitchen</option>
-                        <option value="Bedroom">Bedroom</option>
-                        <option value="Bathroom">Bathroom</option>
-                      </select>
-                    </div>
-
-
-                    <label for="selectedmodel" class="mr-1">Select Model:</label>
-                    <select id="selectedmodel" name="selectedmodel" class="bg-black text-sm border rounded-sm p-1">
-                      <option value="Shaun_Model">Shaun Model 2.0</option>
-                      <option value="Dreambooth">Dreambooth</option>
-                      <!-- <option value="option3">Option 3</option> -->
-                    </select>
-                
- 
-                    <br>
-
-                    <div class="mt-6">
-                        <label for="prompt" class="mt-6 text-yellow-500 "><i class="fa-solid fa-terminal mr-2 text-green-400"></i>Prompt:</label>
-                        <textarea id="prompt" name="prompt" rows="4"  class="rounded bg-black border mt-2 text-gray-400 p-1 w-full text-sm hover:border-yellow-400" placeholder="prompt here"></textarea>
-                    
-                    
-                        <label for="negativePrompt" class="text-yellow-500 "><i class="fa-solid fa-terminal mr-2 text-red-400"></i>Negative Prompt:</label>
-                        <textarea id="negativePrompt" name="negativePrompt" rows="4"  class="rounded bg-black border mt-2 p-1 w-full text-sm hover:border-yellow-400" placeholder="negative prompt here"></textarea>
-                    </div>
-                
-                
-                
-                
-                    <input type="submit" value="Generate" class="border mt-10 w-full mx-auto rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-black font-bold hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500">
-
-                  </form>
-            </div>
+        <!-- room -->
+        <div class="my-4">
+          <label for="selectedroom" class="mr-1">Select Room :</label>
+          <select
+            id="selectedroom"
+            name="selectedroom"
+            class="bg-black text-sm border rounded-sm p-1"
+          >
+            <option value="Hall">Living Room</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Bedroom">Bedroom</option>
+            <option value="Bathroom">Bathroom</option>
+            <option value="Bathroom">Home Office</option>
+            <option value="Bathroom">Dining Room</option>
+            <option value="Bathroom">Outdoor Space</option>
+          </select>
         </div>
 
-        <!-- Left side : Gen output -->
-        <div class="col-span-3 border">
-
-            <!-- Season -->
-            <section class="text-gray-400" id="software">
-            
-                <div id="seasonalItems" class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6 pb-6">
-                
-                  {% if imgData %}
-                    {% for iData in imgData %}
-                
-                    <!-- Card -->
-                    <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400">
-                        <img src="{% static iData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
-                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
-                        <div class="my-4">
-                            <div class="text-left text-xs mb-4"><b>Model : </b>{{ iData.modelName }}</div>
-                            <div class="text-left text-xs"><b>Prompt : <br></b>{{ iData.prompt }}</div>
-                        </div>
-                    </div>
-                
-                   
-                    {% endfor %}
-                  {% endif %}
-                          
 
 
-                
+        <label for="selectedmodel" class="mr-1">Select Model:</label>
+        <select
+          id="selectedmodel"
+          name="selectedmodel"
+          class="bg-black text-sm border rounded-sm p-1"
+        >
+        <option value="Dreambooth">Dreambooth</option>
+          <option value="Shaun_Model">Shaun Model 2.0</option>
+          <!-- <option value="option3">Option 3</option> -->
+        </select>
 
-                
-                
-                
-                    </div>
+        <br />
 
-            </section>
+        <div class="mt-6">
+          <label for="prompt" class="mt-6 text-yellow-500"
+            ><i class="fa-solid fa-terminal mr-2 text-green-400"></i
+            >Prompt:</label
+          >
+          <textarea
+            id="prompt"
+            name="prompt"
+            rows="4"
+            class="rounded bg-black border mt-2 text-gray-400 p-1 w-full text-sm hover:border-yellow-400"
+            placeholder="prompt here"
+          ></textarea>
 
+          <!-- Suggestions -->
+
+          <div class="border border-gray-600 p-2 rounded-md my-4">
+            <button id="toggleButton" class="text-md  text-yellow-500"><i class="fa-regular fa-circle-question mr-2"></i>View Suggestion</button>
+            <!-- <div class="hidden" id="hiddenContent"> -->
+            <div class="hidden mt-4" id="hiddenContent">
+
+              <!-- style_templateslist_id -->
+              <div >
+                <label for="style_templateslist_id" class="mr-1 text-xs mr-auto">Style Templates : </label>
+                <select
+                id="style_templateslist_id"
+                name="style_templateslist_id"
+                class="bg-black text-sm border rounded-sm p-1 pr-16"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Elegant</option>
+                  <option value="2">Cozy</option>
+                  <option value="3">Minimalistic</option>
+                  <option value="4">Eclectic</option>
+                  <option value="5">Industrial</option>
+                  <option value="6">Vibrant</option>
+                  <option value="7">Natural</option>
+                <!-- <option value="option3">Option 3</option> -->
+                </select>
+              </div>
+
+              <!-- looks -->
+              <div >
+                <label for="looks" class="mr-1 text-xs">Looks :</label>
+                <select
+                id="looks"
+                name="looks"
+                class="bg-black text-sm border rounded-sm p-1 ml-10"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Modern and luxurious</option>
+                  <option value="2">Vintage and cozy</option>
+                  <option value="3">Minimalistic and sleek</option>
+                  <option value="4">Rustic and charming</option>
+                  <option value="5">Bohemian and eclectic</option>
+                </select>
+              </div>
+
+              <!-- styles -->
+              <div >
+                <label for="styles" class="mr-1 text-xs">Styles :</label>
+                <select
+                id="styles"
+                name="styles"
+                class="bg-black text-sm border rounded-sm p-1 ml-14 pr-4"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Contemporary</option>
+                  <option value="2">Traditional</option>
+                  <option value="3">Industrial</option>
+                  <option value="4">Scandinavian</option>
+                  <option value="5">Mid-century modern</option>
+                </select>
+              </div>
+
+              <!-- artists -->
+              <div >
+                <label for="artists" class="mr-1 text-xs">Artists :</label>
+                <select
+                id="artists"
+                name="artists"
+                class="bg-black text-sm border rounded-sm p-1 ml-12 pr-10"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Kelly Wearstler</option>
+                  <option value="2">Nate Berkus</option>
+                  <option value="3">Candice Olson</option>
+                  <option value="4">Joanna Gaines</option>
+                  <option value="5">Philippe Starck</option>
+                </select>
+              </div>
+
+              <!-- color_palettes -->
+              <div >
+                <label for="color_palettes" class="mr-1 text-xs">Color Palettes :</label>
+                <select
+                id="color_palettes"
+                name="color_palettes"
+                class="bg-black text-sm border rounded-sm p-1 pr-10"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Neutral Tones</option>
+                  <option value="2">Earthy and Natural</option>
+                  <option value="3">Vibrant and Bold</option>
+                  <option value="4">Monochromatic</option>
+                  <option value="5">Pastel Colors</option>
+                </select>
+              </div>
+
+              <!-- artistic_params -->
+              <div >
+                <label for="artistic_params" class="mr-1 text-xs">Artistic Params :</label>
+                <select
+                id="artistic_params"
+                name="artistic_params"
+                class="bg-black text-sm border rounded-sm p-1 pr-10"
+                >
+                  <option value="0">None</option>
+                  <option value="1">Texture Emphasis</option>
+                  <option value="2">Lighting Style</option>
+                  <option value="3">Furniture Styles</option>
+                  <option value="4">Pattern Usage</option>
+                  <option value="5">Wall Art and Decor</option>
+                </select>
+              </div>
+
+
+
+
+                  
+              </div>
+            </div>
+
+          </div>
+
+
+          <label for="negativePrompt" class="text-yellow-500"
+            ><i class="fa-solid fa-terminal mr-2 text-red-400"></i>Negative
+            Prompt:</label
+          >
+          <textarea
+            id="negativePrompt"
+            name="negativePrompt"
+            rows="4"
+            class="rounded bg-black border mt-2 p-1 w-full text-sm hover:border-yellow-400"
+            placeholder="negative prompt here"
+          ></textarea>
         </div>
+
+        <input
+          type="submit"
+          value="Generate"
+          class="border mt-10 w-full mx-auto rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-black font-bold hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500"
+        />
+      </form>
+    </div>
+  </div>
+
+  <!-- Left side : Gen output -->
+  <div class="col-span-3 border">
+    <!-- Season -->
+    <section class="text-gray-400" id="software">
+      <div
+        id="seasonalItems"
+        class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6 pb-6"
+      >
+        {% if imgData %} {% for iData in imgData %}
+
+        <!-- Card -->
+        <div
+          class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400"
+        >
+          <img
+            src="{% static iData.path  %}"
+            alt="genImg"
+            class="h-80 w-auto border-4 rounded-md mx-auto mb-4"
+          />
+          <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+          <div class="my-4">
+            <div class="text-left text-xs mb-4">
+              <b>Model : </b>{{ iData.modelName }}
+            </div>
+            <div class="text-left text-xs">
+              <b>Prompt : <br /></b>{{ iData.prompt }}
+            </div>
+          </div>
+        </div>
+
+        {% endfor %} {% endif %}
+      </div>
     </section>
+  </div>
+</section>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Get the button and hidden content elements
+      var toggleButton = document.getElementById('toggleButton');
+      var hiddenContent = document.getElementById('hiddenContent');
 
-    <!-- Footer -->
-    <section class="text-xl px-2 py-2 md:px-20">
-        <div class="text-center font-bold text-gray-400 my-1"><i class="fa-regular fa-copyright mr-2"></i>inHomeGen | 2024</div>
-    </section>
+      // Add a click event listener to the button
+      toggleButton.addEventListener('click', function () {
+          // Toggle the 'hidden' class on the content
+          hiddenContent.classList.toggle('hidden');
+      });
+  });
+</script>
 
-</body>
-</html>
+{% endblock %}

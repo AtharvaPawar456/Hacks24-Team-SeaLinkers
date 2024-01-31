@@ -15,7 +15,7 @@ class ImgDetails(models.Model):
 
     modelName = models.CharField(max_length=50, default="")
     style = models.CharField(max_length=50, default="")
-    path = models.CharField(max_length=120, default="")
+    path = models.CharField(max_length=300, default="")
 
     
     

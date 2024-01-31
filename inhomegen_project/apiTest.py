@@ -7,13 +7,13 @@ from io import BytesIO
 # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
 
 # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
-server_url = "https://6cb4-34-105-23-167.ngrok-free.app/"
+server_url = "https://a3db-203-212-24-36.ngrok-free.app/"
 api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
 
 # Example payload for retro style
 payload_retro = {
     # "input_prompt": "minimalistic living room",
-    "input_prompt": "Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery, gray pallet minimalistic: tv, sofa, table ",
+    "input_prompt": "Generate an image of an victorian-style bedroom with a luxurious bed, adorned with classic furniture, bathed in cool lighting, ",
     "style_templateslist_id": 1,
     "look_id": 4,    #max =  7
     "styles_id": 4,  #max =  5
