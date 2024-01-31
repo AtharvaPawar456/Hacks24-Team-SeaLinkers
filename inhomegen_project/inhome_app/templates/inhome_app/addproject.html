@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+
+    <link rel="icon" type="image/png" href="{% static 'inhome_app\setup\logo.png' %}">
+
+    <script src="{% static 'inhome_app\setup\tailwindcss.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+    <title>Add New Node</title>
+</head>
+<body>
+    
+    <h2 class="text-2xl text-center py-10 font-bold"><i class="fa-solid fa-boxes-stacked mr-2"></i>Add Project</h2>
+
+    <!-- <form method="post" action="{% url 'addproject' %}" class="hidden"> -->
+        
+        <!-- <input class="hidden" type="text" name="user_name" value="{{ request.user.username }}" required>
+        
+        <label for="node_name">Node Name:</label>
+        <input type="text" name="node_name" placeholder="node_alpha" required>
+        
+        <br>
+        
+        <label for="location">Location:</label>
+        <input type="text" name="lat"   placeholder="latitude"  required>
+        <input type="text" name="long"  placeholder="longitude" required>
+
+        <br>
+        
+        <button type="submit">Add Node</button>
+    </form> -->
+
+    
+
+    <form class="max-w-sm mx-auto px-2" method="post" action="{% url 'addproject' %}">
+        {% csrf_token %}
+        <input class="hidden" type="text" name="user_name" value="{{ request.user.username }}" required>
+
+        <!-- node name -->
+        <div class="mb-5">
+        <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-900 ">Enter Project Name:</label>
+        <input type="text" id="text" name="proj_name"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="dream interior" required>
+        </div>
+
+        
+        <button type="submit" 
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">
+            Save
+        </button>
+    </form>
+  
+</body>
+</html>

@@ -3,47 +3,29 @@ from django.db import models
 # Create your models here.
 
 
-
-# user_name, heartPulse, dhtTemp, dhtHum, gyroX, gyroY, gyroZ, acceleroX, acceleroY, acceleroZ  
-
-# class SensorData(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     user_name = models.CharField(max_length=50)
-#     pub_date = models.DateField()
-#     pub_time = models.CharField(max_length=10, default="")
-
-
-#     heartPulse = models.IntegerField(default=0)
-
-#     dhtTemp = models.IntegerField(default=0)
-#     dhtHum  = models.IntegerField(default=0)
-
-#     # send in list
-#     gyroX = models.FloatField(default=0)
-#     gyroY = models.FloatField(default=0)
-#     gyroZ = models.FloatField(default=0)
-    
-#     # send in list
-#     acceleroX = models.FloatField(default=0)
-#     acceleroY = models.FloatField(default=0)
-#     acceleroZ = models.FloatField(default=0)
-
-
-
-#     def __str__(self):
-#         return f'{self.id}- {self.user_name} {self.pub_date} - heartPulse : {self.heartPulse}'
-
-
-
-class ProjectDetails(models.Model):
+class ImgDetails(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50)
     user_name = models.CharField(max_length=50)
+    projName = models.CharField(max_length=120, default="")
+    roomName = models.CharField(max_length=120, default="")
+    
+
+    prompt = models.CharField(max_length=50, default="")
+    negprompt = models.CharField(max_length=50, default="")
+
+    style = models.CharField(max_length=50, default="")
+    path = models.CharField(max_length=120, default="")
+
+    
     
     pub_date = models.DateField()
+    pub_time = models.CharField(max_length=50)
 
     def __str__(self):
-        return f'{self.id}- {self.name} - {self.user_name} - {self.pub_date}'
+        return f'{self.id} - {self.user_name} - {self.pub_date}'
+    
+
+
 
 
 class UserData(models.Model):
@@ -56,6 +38,25 @@ class UserData(models.Model):
 
     def __str__(self):
         return f'{self.id}- {self.user_name} {self.pub_date}'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -112,11 +112,29 @@
             <div class="text-center text-xl text-yellow-500 font-bold"><i class="fa-solid fa-image mr-2"></i> text2img</div>
 
             <div class="p-4 text-xl mt-4 border rounded-md">
-                <div class="mb-2 text-yellow-500 text-center"><i class="fa-solid fa-layer-group mr-2"></i>Select Model</div>
+              <div class="mb-2 text-yellow-500 text-center"><i class="fa-solid fa-layer-group mr-2"></i>Project Details</div>
+              
+              <form action="your_action_url" method="POST" class="px-2">
+                
+                    <!-- project name -->
+                    <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
+                    <input type="text" id="text" name="proj_name"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" placeholder="dream interior" required>
+                    
+                    <!-- room -->
+                    <div class="my-4">
+                      <label for="selectOption" class="mr-1">Select Room :</label>
+                      <select id="selectOption" name="selectedOption" class="bg-black text-sm border rounded-sm p-1">
+                        <option value="Hall">Hall</option>
+                        <option value="Kitchen">Kitchen</option>
+                        <option value="Bedroom">Bedroom</option>
+                        <option value="Bathroom">Bathroom</option>
+                      </select>
+                    </div>
 
-                <form action="your_action_url" method="POST" class="px-2">
+
                     <label for="selectOption" class="mr-1">Select Model:</label>
-                    <select id="selectOption" name="selectedOption" class="bg-black text-sm">
+                    <select id="selectOption" name="selectedOption" class="bg-black text-sm border rounded-sm p-1">
                       <option value="option1">Shaun Model 2.0</option>
                       <option value="option2">Dreambooth</option>
                       <!-- <option value="option3">Option 3</option> -->

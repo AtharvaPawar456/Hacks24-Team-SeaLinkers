@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- 600 seconds = 10 minutes -->
-    <meta http-equiv="refresh" content="20" />
+    <!-- <meta http-equiv="refresh" content="20" /> -->
     
     {% load static %}
 
@@ -19,7 +19,7 @@
     <!-- <link rel="stylesheet" href="{% static 'bandapp\setup\Chart.min.css' %}" /> -->
 
 
-    <title>HealthyBand | Dashboard</title>
+    <title>HealthyBand | View Rooms</title>
 </head>
 <body class="body-container bg-black font-mono">
 
@@ -72,14 +72,15 @@
         <div class="border rounded p-10 text-center hover:bg-gray-600">
           <div><i class="fa-solid fa-square-plus text-[100px] mb-10"></i></div>
 
-          <form class="max-w-sm mx-auto px-2" method="post" action="{% url 'addproject' %}">
+          <form class="max-w-sm mx-auto px-2" method="post" action="{% url 'addroom' %}">
             {% csrf_token %}
             <input class="hidden" type="text" name="user_name" value="{{ request.user.username }}" required>
+            <input class="hidden" type="text" name="proj_name" value="{{ proj_name }}" required>
     
             <!-- node name -->
             <div class="mb-5">
             <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
-            <input type="text" id="text" name="proj_name"
+            <input type="text" id="text" name="room_name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="dream interior" required>
             </div>
     
@@ -91,16 +92,16 @@
           </form>
         </div>
 
-        {% if userSensorData %}
-          {% for projData in userSensorData %}
+        {% if allViewPlace %}
+          {% for projData in viewJson %}
           
               <!-- Node Card Starts -->
-              <a href="/view_data/?proj={{ projData.name }}" class="hover:bg-yellow-800 hover:text-black border shadow rounded-xl p-10">
+              <a href="#" class="hover:bg-yellow-800 hover:text-black border shadow rounded-xl p-10">
                 <div class="">
-                  <div class="text-center text-2xl mb-6 font-bold">{{ projData.name | title }}</div>
-                  <div class="text-center text-xl"><br>{{ projData.pub_date }} ( {{ projData.pub_time }} )</div>
-                  <div class="text-center text-2xl mb-6 font-bold mt-8">{{ viewJson }}</div>
+                  <div class="text-center text-2xl mb-6 font-bold my-20">{{ projData | title }}</div>
                 </div>
+                
+                
               </a>
               <!-- Node Card Ends -->
               
@@ -112,7 +113,23 @@
       </div>
   </section>
 
-   
+
+
+
+    
+    <!-- Node Card Ends -->
+    <section class="text-gray-300">
+
+
+            
+    </section>
+
+    
+        
+
+
+
+
 
 </body>
 </html>

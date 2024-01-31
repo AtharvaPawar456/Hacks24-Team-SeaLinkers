@@ -9,6 +9,9 @@ python manage.py startapp inhome_app
 ### Create Django Admin User:
 python manage.py createsuperuser
 
+username : inhomeAdmin
+password : in@home@$123
+
 
 ### Run Migrations:
 python manage.py migrate

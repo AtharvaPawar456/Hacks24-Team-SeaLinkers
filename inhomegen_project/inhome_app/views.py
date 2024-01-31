@@ -1,10 +1,12 @@
 #  i have created this file - GTA
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from .models import UserData
+from .models import UserData, ImgDetails
 import random
 import os
 import requests
+import json
+
 
 from django.utils import timezone
 
@@ -35,10 +37,45 @@ def index(request):
     # return HttpResponse('Securix V2    |      index Page')
     return render(request,'inhome_app/welcome.html')
 
-def showresult(request):
+# def showresult(request):
     # return HttpResponse('Securix V2    |      index Page')
-    return render(request,'inhome_app/showresult.html')
+    # return render(request,'inhome_app/showresult.html')
 
+# def addproject(request):
+#     # return HttpResponse('Securix V2    |      index Page')
+#     return render(request,'inhome_app/addproject.html')
+
+
+
+
+
+@login_required
+def addproject(request):
+    if request.method == 'POST':
+        proj_name   = request.POST.get('proj_name')
+
+        user_name   = request.user.username
+
+        dataandtime = timezone.now()
+        pub_date     = dataandtime.date()
+        pub_time     = dataandtime.strftime('%H:%M:%S')
+
+        jsonData = ''
+        
+        # Create a new node
+        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+
+        # Redirect to a success page or another view
+        return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
+
+    return render(request,'inhome_app/addproject.html')
+
+
+
+
+
+
+@login_required
 def dashboard(request):
     # return HttpResponse('Securix V2    |      index Page')
 
@@ -46,14 +83,197 @@ def dashboard(request):
     logedIn_user = request.user.username
     
     # Query the database to get all records for the logged-in user
-    # userData = SensorData.objects.filter(user_name=logedIn_user)
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    userData = "ProjectDetails.objects.filter(user_name=logedIn_user)"
+
+
+
+
 
     # Pass the data to the template
-    context = {'userSensorData': "userData"}
+    context = {'userSensorData': userData, 'viewJson': "jsonKeys"}
     
     # Render the template with the data
-    return render(request, 'inhome_app/dashboard.html', context)
+    return render(request, 'inhome_app/index.html', context)
     # return render(request, 'inhome_app/index.html', context)
+
+
+
+
+
+@login_required
+def generate(request):
+    if request.method == 'POST':
+        proj_name   = request.POST.get('proj_name')
+        room_name   = request.POST.get('room_name')
+
+        user_name   = request.user.username
+
+        userData = "ProjectDetails.objects.filter(user_name=user_name, name=proj_name)"
+
+        if userData:
+            for entry in userData:
+                if entry.jsonData:
+                    json_data = json.loads(entry.jsonData)
+
+
+        project_details = "get_object_or_404(ProjectDetails, user_name=user_name, name=proj_name)"
+
+        # Update the jsonData field
+        new_json_data = f'{"updated_key": room_name}'  # Replace with your updated JSON data
+        json_data[room_name]=""
+        project_details.jsonData = new_json_data
+
+        # Save the changes to the database
+        project_details.save()
+
+
+        # jsonData = ''
+        
+        # Create a new node
+        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+
+        # Redirect to a success page or another view
+        return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
+
+    return render(request,'inhome_app/addproject.html')
+
+
+
+@login_required
+def addroom(request):
+    if request.method == 'POST':
+        proj_name   = request.POST.get('proj_name')
+        room_name   = request.POST.get('room_name')
+
+        user_name   = request.user.username
+
+        userData = "ProjectDetails.objects.filter(user_name=user_name, name=proj_name)"
+
+        if userData:
+            for entry in userData:
+                if entry.jsonData:
+                    json_data = json.loads(entry.jsonData)
+
+
+        project_details = "get_object_or_404(ProjectDetails, user_name=user_name, name=proj_name)"
+
+        # Update the jsonData field
+        new_json_data = f'{"updated_key": room_name}'  # Replace with your updated JSON data
+        json_data[room_name]=""
+        project_details.jsonData = new_json_data
+
+        # Save the changes to the database
+        project_details.save()
+
+
+        # jsonData = ''
+        
+        # Create a new node
+        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+
+        # Redirect to a success page or another view
+        return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
+
+    return render(request,'inhome_app/addproject.html')
+
+
+
+'''
+project_id = 1  # Replace with the actual ID
+
+# Retrieve the ProjectDetails object
+project_details = get_object_or_404(ProjectDetails, id=project_id)
+
+# Update the jsonData field
+new_json_data = '{"updated_key": "updated_value"}'  # Replace with your updated JSON data
+project_details.jsonData = new_json_data
+
+# Save the changes to the database
+project_details.save()
+
+'''
+
+
+
+
+@login_required
+def view_data(request):
+    if request.method == 'GET':
+        # Get parameters from the GET request
+        proj_name = request.GET.get('proj', '')
+
+        logedIn_user = request.user.username
+
+
+        # Validate the proj_name
+        userData = "ProjectDetails.objects.filter(user_name=logedIn_user, name=proj_name)"
+        # userData = ProjectDetails.objects.filter(user_name=logedIn_user, name=proj_name).first()
+
+        # Initialize an empty list to store the keys
+        jsonKeys = []
+        # json_data = {}
+
+        allViewPlace = {}
+
+        if userData:
+            # _json_data = json.loads(userData.jsonData)
+
+            # Convert jsonData field to Python dictionary and extract keys
+            for entry in userData:
+                if entry.jsonData:
+                    json_data = json.loads(entry.jsonData)
+                    keys = list(json_data.keys())
+                    # val=list(json_data.values())
+
+                    jsonKeys.extend(keys)
+            # print(json_data['hall'])
+            # print(json_data)
+
+            # Remove duplicates if needed
+            jsonKeys = list(set(jsonKeys))
+            print(jsonKeys)
+
+            for item in jsonKeys:
+                values = json_data[item]
+                imgData = imgData = ImgDetails.objects.filter(id__in=values)
+
+                if imgData != None:
+                    print("userData : ", item)
+                    # allViewPlace.append(imgData)
+                    
+                    # Iterate over the imgData queryset and add each record to allViewPlace
+                    for img_entry in imgData:
+                        allViewPlace[img_entry.id] = {
+                            'user_name': img_entry.user_name,
+                            'prompt': img_entry.prompt,
+                            'negprompt': img_entry.negprompt,
+                            'style': img_entry.style,
+                            'path': img_entry.path,
+                            'pub_date': img_entry.pub_date,
+                            'pub_time': img_entry.pub_time,
+                        }
+
+                    print("imgData : ", imgData)
+
+        print("allViewPlace : ", allViewPlace)
+
+        
+        # Pass the data to the template
+        context = {'userSensorData': userData, 'viewJson': jsonKeys, 'allViewPlace': allViewPlace, 'proj_name':proj_name}
+    
+
+        return render(request, 'inhome_app/viewproj.html', context)
+        
+    else:
+        return redirect('view_data')
+
+'''
+
+http://127.0.0.1:8000/view_data/?proj=alpha
+'''
+
+
 
 # API : sensor_latest_data 
 # # @csrf_exempt
