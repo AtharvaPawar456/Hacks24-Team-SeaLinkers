@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="static/logo.png">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script src="static\tailwindcss.js"></script>
+
+    <style>
+        .body-container {
+            height: 27rem;
+            overflow-y: auto;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #656161 #686464; /* Firefox */
+    
+            /* Webkit (Chrome, Safari) */
+            &::-webkit-scrollbar {
+                width: 10px;
+            }
+    
+            &::-webkit-scrollbar-thumb {
+                background-color: #555353;
+            }
+    
+            &::-webkit-scrollbar-track {
+                background-color: #f0f0f0;
+            }
+        }
+    </style>
+
+    <title>inHomeGen | Gallery</title>
+</head>
+<body class="body-container bg-black font-mono">
+    
+    <!-- Navbar - fixed -->
+    <section class="font-mono z-50">
+        <nav class="fixed z-50 bg-black top-0 left-0 w-full py-2 px-4 flex items-center justify-between border shadow-md">
+            <!-- Brand Logo and Name on the Left -->
+            <a class="flex items-center space-x-2" href="#">
+              <img src="static/logo.png" alt="yerunkar corner Logo" class="h-12 w-12 rounded-full border-2"> 
+                <!-- Adjust height and width as needed -->
+              <span class="text-2xl font-bold text-gray-200 hover:text-gray-400">inHomeGen</span>
+            </a>
+        
+            <!-- Tabs on the Right -->
+            <div class="flex items-center space-x-10">
+                <a href="gallery.html" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Gallary</a>
+                <a href="index.html" class="text-xl text-black font-bold hover:underline border p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">Generator</a>
+                <a href="#" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Support</a>
+            </div>
+
+            <!-- Tabs on the Right - responsive -->
+            <!-- <div class="hidden md:flex items-center space-x-10">
+                <a href="#software" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
+                <a href="#hardware" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
+                <a href="#contact" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
+            </div> -->
+
+           <!-- Mobile Menu Toggle (Hamburger Icon) -->
+            <!-- <div class="md:hidden">
+            <button id="mobileMenuToggle" class="text-xl text-gray-600 hover:text-gray-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+            </div> -->
+
+          <!-- Mobile Menu -->
+          <!-- <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white py-2 px-4 shadow-md">
+              <a href="#software" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
+              <a href="#hardware" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
+              <a href="#contact" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
+          </div> -->
+
+          </nav>
+    </section>
+
+    <!-- Body -->
+    <section class="h-screen mt-20">
+
+        <div class="text-center font-bold text-yellow-400 text-4xl mb-2">Gallery</div>
+        
+        <!-- Gallery : Prev Gen output -->
+        <div class="col-span-3">
+
+            <!-- Season -->
+            <section class="text-gray-400" id="software">
+            
+                <div id="seasonalItems" class="grid grid-cols-1 md:grid-cols-5 gap-4 px-6">
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+                    <!-- Card -->
+                    <div class="rounded-md border border-gray-400 my-2 md:my-6 py-4 px-2 hover:border-yellow-400">
+                        <img src="static/sample.jpeg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                        <div class="my-4">
+                          <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
+
+                          <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                        </div>
+                    </div>
+                
+
+                
+
+                
+                
+                
+                    </div>
+
+                        <!-- Footer -->
+                    <section class="text-xl px-2 mt-4 md:px-20">
+                        <div class="text-center font-bold text-gray-400 my-1"><i class="fa-regular fa-copyright mr-2"></i>inHomeGen | 2024</div>
+                    </section>
+            </section>
+
+        </div>
+    </section>
+
+
+
+
+
+</body>
+</html>
