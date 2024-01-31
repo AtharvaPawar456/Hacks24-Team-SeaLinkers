@@ -6,6 +6,7 @@ import random
 import os
 import requests
 import json
+import ast
 
 
 from django.utils import timezone
@@ -34,6 +35,8 @@ from django.core.files.storage import FileSystemStorage
 
 # media_full_path = settings.MEDIA_ROOT + "\playapp_data"
 media_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\generatedimg"
+
+product_file = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\setup\\demo.json"
 
 
 # Create your views here.
@@ -135,6 +138,60 @@ def Budget(request, genimgid):
     # Query the database to get all records for the logged-in user
     # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
     imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+    # Convert the string to a list using ast.literal_eval
+    objects_init_list = ast.literal_eval(imgData.objectsinit)
+
+
+    # Read the JSON data from the file
+    with open(product_file, 'r') as file:
+        product_data = json.load(file)
+
+    # List of products to match
+    product_list = ['chair', 'table']
+
+    # Function to perform fuzzy string matching
+    def match_products(product_list, product_data):
+        matches = {}
+
+        for product in product_list:
+            # Find the best match using fuzzywuzzy
+            matched_product, score = process.extractOne(product, product_data.keys(), scorer=fuzz.token_set_ratio)
+
+            # Check if the match score is above a certain threshold (adjust as needed)
+            if score >= 80:
+                matches[product] = matched_product
+
+        return matches
+    
+    # Perform fuzzy string matching
+    matched_products = match_products(product_list, product_data)
+
+    # Print the matched products
+    for key, value in matched_products.items():
+        print(f'Matched: {key} -> {value}')
+
+    # Pass the data to the template
+    context = {'imgData': imgData, 'proj_name' : genimgid, 'objects_init_list' : objects_init_list}
+    
+    return render(request, 'inhome_app/budget.html', context)
+
+
+
+
+@login_required
+def Revision(request, genimgid):
+
+    # Get the logged-in user's username
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+    prompt = "Add candles in the room and make "
+
+    # apicall.img2img(prompt,imgData.path)
 
 
     # Pass the data to the template

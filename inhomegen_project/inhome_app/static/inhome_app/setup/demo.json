@@ -1,0 +1,376 @@
+[
+  {
+    "benches": {
+      "affordable": [
+        {
+          "name": "Folding Wooden Bench",
+          "price": 99.00,
+          "url": "https://www.flipkart.com/furniture/furniture-accessories/benches/foldable~foldable/pr?sid=search.flipkart.com%2Cwwe%2Cq7b%2Cxsq",
+          "image": "https://zazahomes.co.uk/wp-content/uploads/2022/05/Folding-Bench-with-arms.jpg"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Modern Slatted Bench",
+          "price": 750.00,
+          "url": "https://www.etsy.com/in-en/market/slatted_bench",
+          "image": "https://www.ana-white.com/sites/default/files/2016-06-26%2006.39.28.jpg"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Teak Bench with Cushion",
+          "price": 1200.00,
+          "url": "https://teaklab.com/product-tag/teak-bench/",
+          "image": "https://gardenerspath.com/wp-content/uploads/2022/12/Best-Garden-Benches-Feature.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "chairs": {
+      "affordable": [
+        {
+          "name": "AmazonBasics Mid-Back Mesh Task Chair",
+          "price": 80.00,
+          "url": "https://www.amazon.in/AmazonBasics-Back-Mesh-Chair-Black/dp/B00IIFW2L4",
+          "image": "https://images-na.ssl-images-amazon.com/images/I/810YuvMKhkL.jpg"
+        },
+        {
+          "name": "Staples Hyken+ Mesh Task Chair",
+          "price": 90.99,
+          "url": "https://www.amazon.in/Staples-990119-Hyken-Technical-Chair/dp/B00OCSNMO2",
+          "image": "https://bantia.in/cdn/shop/products/1_d75a1593-fc23-4bb8-b1e3-c8d1af8e3ab4_800x.jpg?v=1663928823"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "West Elm Swivel Armchair",
+          "price": 399.00,
+          "url": "https://www.westelm.com/shop/furniture/swivel-chair+living-room-chairs/chairstyle-m-chair-style-ff000711191ffe2020-1/",
+          "image": "https://images.woodenstreet.de/image/cache/data%2Flounge-chairs%2FAdoree-lounge-arm-chair-wanlut-finish%2Fnewwww%2Frose-vineyarrd%2F1-750x650.jpg"
+        },
+        {
+          "name": "Muji Armless Oak Chair",
+          "price": 499.00,
+          "url": "https://www.muji.us/products/oak-round-chair-b8a3",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUTP82tc3OfZduph97lDoypEzuWjJKPbIQ_HybPgXpqZYbK8wLWHtVJk5gvxGLTId2bqg&usqp=CAU"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Knoll Barcelona Chair",
+          "price": 9854.00,
+          "url": "https://www.knoll.com/product/barcelona-chair",
+          "image": "https://ouchcart.com/cdn/shop/products/Hendrix_Upholstered_Barrel_Chair_8_fd06884e-ed68-48ea-86b8-996c4b9cf1be.webp?v=1667035780"
+        },
+        {
+          "name": "Eames Lounge Chair & Ottoman",
+          "price": 6165.00,
+          "url": "https://www.hermanmiller.com/en_lac/products/seating/lounge-seating/eames-lounge-chair-and-ottoman/",
+          "image": "https://m.media-amazon.com/images/S/aplus-media-library-service-media/4f660c1e-4e76-483f-a73b-68b375b01dac.__CR0,0,970,600_PT0_SX970_V1___.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "sofas": {
+      "affordable": [
+        {
+          "name": "Ashley Furniture Signature Design Sofa",
+          "price": 599.00,
+          "url": "https://www.ashleyfurniture.com/c/furniture/living-room/sofas/",
+          "image": "https://www.royaloakindia.com/_next/image?url=https%3A%2F%2Fmedia.royaloakindia.com%2Fmedia%2Fcatalog%2Fproduct%2Fs%2Ff%2Fsf102-3_lfs_1.jpg&w=1920&q=50"
+        },
+        {
+          "name": "Novogratz Modern Futon Sofa Bed",
+          "price": 299.99,
+          "url": "https://www.shopthenovogratz.com/collections/sofas-futons",
+          "image": "https://www.royaloakindia.com/_next/image?url=https%3A%2F%2Fmedia.royaloakindia.com%2Fmedia%2Fcatalog%2Fproduct%2Fs%2Ff%2Fsf102-3_lfs_1.jpg&w=1920&q=50"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "West Elm Andes Sectional Sofa",
+          "price": 2499.00,
+          "url": "https://www.westelm.com/products/andes-3-piece-chaise-sectional-h1815/",
+          "image": "https://m.media-amazon.com/images/I/81FjmmpkGGL._AC_UF1000,1000_QL80_.jpg"
+        },
+        {
+          "name": "Crate & Barrel Lounge II Sofa",
+          "price": 1999.00,
+          "url": "https://www.crateandbarrel.com/lounge-deep-2-piece-sectional-sofa/s483932",
+          "image": "https://m.media-amazon.com/images/I/81FjmmpkGGL._AC_UF1000,1000_QL80_.jpg"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Restoration Hardware Belgian Linen Slipcover Sofa",
+          "price": 8995.00,
+          "url": "https://rh.com/us/en/catalog/product/product.jsp?productId=prod9740156&layout=horizontal&clientrender=true",
+          "image": "https://i.pinimg.com/736x/14/4d/e6/144de68a0d1ab3d3479d9c84f8a69a17.jpg"
+        },
+        {
+          "name": "Natuzzi Leather Sofa",
+          "price": 12000.00,
+          "url": "https://www.natuzzi.com/us/en/shop/natuzzi-italia/na-living-sofas-sectionals",
+          "image": "https://aarsunwoods.com/wp-content/uploads/2018/01/Fully-carved-Wooden-Sofa-Set-Living-Room-Carved-Furniture-UH-YT-104-jpg.webp"
+        }
+      ]
+    }
+  },
+  {
+    "potted_plants": {
+      "affordable": [
+        {
+          "name": "Snake Plant (Sansevieria trifasciata)",
+          "price": 12.50,
+          "url": "https://nurserylive.com/collections/snake-plants",
+          "image": "https://cdn11.bigcommerce.com/s-mm9ficts64/images/stencil/1280x1280/products/51837/132847/dwsilk-6ft-fiddle-leaf-cantera-vase-4303177__22911.1683569556.jpg?c=1"
+        },
+        {
+          "name": "ZZ Plant (Zamioculcas zamiifolia)",
+          "price": 17.50,
+          "url": "https://www.ugaoo.com/collections/zz-plant",
+          "image": "https://cdn.shopify.com/s/files/1/0812/2699/products/FAR1255-PMGreen_BurgundyFigBranchTallEverydayAllSeasonWaterIllusionArrangementinGlassCylinderVa_1800x1800.jpg?v=1662559783"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Fiddle Leaf Fig (Ficus lyrata)",
+          "price": 40.00,
+          "url": "https://www.ugaoo.com/products/fiddle-leaf-fig-plant-bambino?variant=40859581677700&currency=INR&utm_medium=product_sync&utm_source=google&utm_content=sag_organic&utm_campaign=sag_organic&gad_source=1&gclid=CjwKCAiA_OetBhAtEiwAPTeQZzQqCu6Uqjpy6NcDqkabmXffEV5RfORk3FJvu2HFeTGDNglkwsDDIxoCsWoQAvD_BwE",
+          "image": "https://www.luluandi.co/cdn/shop/products/ET040ET041-650x650_42f66f83-a8a6-4ae9-87ce-7bd14950b28c_600x.jpg?v=1662100915"
+        },
+        {
+          "name": "Calathea Ornata",
+          "price": 32.50,
+          "url": "https://rootbridges.com/collections/buy-calathea-plants-online",
+          "image": "https://www.luluandi.co/cdn/shop/products/ET040ET041-650x650_42f66f83-a8a6-4ae9-87ce-7bd14950b28c_600x.jpg?v=1662100915"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Juniperus procumbens (Japanese juniper) Bonsai",
+          "price": 125.00,
+          "url": "https://www.amazon.in/Japanese-Juniper-Tree-Juniperus-procumbens/dp/B08JMFCXM2",
+          "image": "https://m.media-amazon.com/images/I/71kjeOuSuHL._AC_UF894,1000_QL80_.jpg"
+        },
+        {
+          "name": "Phalaenopsis Orchid",
+          "price": 75.00,
+          "url": "https://www.gunaorchids.com/",
+          "image": "https://m.media-amazon.com/images/I/71kjeOuSuHL._AC_UF894,1000_QL80_.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "beds": {
+      "affordable": {
+        "name": "Zinus Metal Platform Bed Frame",
+        "price": 149.99,
+        "url": "https://www.zinus.com/collections/bed-frames-and-foundations",
+        "image": "https://www.godrejinterio.com/imagestore/B2C/56101515SD00364/56101515SD00364_A2_500x500.jpg"
+      },
+      "mid-range": {
+        "name": "West Elm Upholstered Platform Bed",
+        "price": 799.00,
+        "url": "https://www.westelm.com/shop/furniture/platform-bed+beds/bedtype-m-bed-style-ff00090f161afe2020-1/",
+        "image": "https://bestfurniture.in/wp-content/uploads/23.jpg"
+      },
+      "high-end": "Adjustable King Size Bed with Massage",
+      "price": 9999.00,
+      "url": "https://www.amazon.in/Sleep-Company-Adjustable-Recliner-King/dp/B09PNPCTFB",
+      "image": "https://teaklab.com/wp-content/uploads/2023/07/10.jpg"
+    }
+  },
+  {
+    "dining_tables": {
+      "affordable": [
+        {
+          "name": "IKEA Björksnäs Extendable Dining Table",
+          "price": 179.00,
+          "url": "https://www.ikea.com/us/en/cat/extendable-tables-21829/",
+          "image": "https://teaklab.com/wp-content/uploads/2023/07/10.jpg"
+        },
+        {
+          "name": "AmazonBasics Modern Foldable Dining Table",
+          "price": 99.99,
+          "url": "https://www.amazon.in/Foldable-Dining-Table/s?k=Foldable+Dining+Table",
+          "image": "https://cdn.decornation.in/wp-content/uploads/2022/11/02_03_01-800x800.jpg"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "West Elm Industrial Round Dining Table",
+          "price": 599.00,
+          "url": "https://www.westelm.com/shop/furniture/round+dining-tables/shape-m-shape-ff000d-1/",
+          "image": "https://cdn.decornation.in/wp-content/uploads/2022/11/02_03_01-800x800.jpg"
+        },
+        {
+          "name": "Crate & Barrel Parsons Extendable Dining Table",
+          "price": 899.00,
+          "url": "https://www.crateandbarrel.com/parsons-table",
+          "image": "https://thetimberguy.com/cdn/shop/products/Solid-Sheesham-Wood-Designer-Dining-table-with-Cushioned-Chair-Bench-furniture-set-CHOOSE-YOUR-COMBINATION_0541a87c-82b2-4d7f-b69a-2e91b37cbf8a_1200x.jpg?v=1628791733"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Restoration Hardware Reclaimed Wood Live Edge Dining Table",
+          "price": 3499.00,
+          "url": "https://rh.com/catalog/product/product.jsp?productId=prod14890221",
+          "image": "https://shopps.in/wp-content/uploads/2023/10/H36be0868ae974119ac44f0b4669fd3c6q.jpg"
+        },
+        {
+          "name": "Knoll Saarinen Tulip Table",
+          "price": 4334.00,
+          "url": "https://www.knoll.com/shop/classics/eero-saarinen-collection",
+          "image": "https://rukminim2.flixcart.com/image/850/1000/kidgnm80-0/dining-set/l/p/e/8-seater-white-rosewood-sheesham-hhfk-64-kendalwood-furniture-original-imafy6hakfwjyvgh.jpeg?q=90&crop=false"
+        }
+      ]
+    }
+  },
+  {
+    "tvs": {
+      "affordable": [
+        {
+          "name": "TCL 4 Series 55R4310 55-Inch 4K Roku Smart TV",
+          "price": 349.99,
+          "url": "https://www.tcl.com/us/en/products/home-theater/4-series/tcl-55-class-4-series-4k-uhd-led-roku-smart-tv-55s425",
+          "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjuTEo9X7jXPnPtuLvuE95fO_UZYZag5iV8g&usqp=CAU"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Vizio V Series 58V51X 58-Inch 4K LED TV",
+          "price": 499.99,
+          "url": "https://www.vizio.com/en/tv/v-series/V585-J01",
+          "image": "https://res.cloudinary.com/sharp-consumer-eu/image/fetch/w_3000,f_auto/https://s3.infra.brandquad.io/accounts-media/SHRP/DAM/origin/b3460ec0-6a8a-11ea-9a43-8a541dae4315.jpg"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "LG C2 OLED 65-Inch 4K Smart TV",
+          "price": 1799.99,
+          "url": "https://www.lg.com/in/tv-soundbars/oled-evo/oled65c2psc/",
+          "image": "https://res.cloudinary.com/sharp-consumer-eu/image/fetch/w_3000,f_auto/https://s3.infra.brandquad.io/accounts-media/SHRP/DAM/origin/b3460ec0-6a8a-11ea-9a43-8a541dae4315.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "microwaves": {
+      "affordable": [
+        {
+          "name": "Galanz Retro Microwave",
+          "price": 79.99,
+          "url": "https://www.amazon.com/Galanz-GLCMKA07BER-07-700-Watt-Countertop-Microwave/dp/B085JSK3JP",
+          "image": "https://cdn.shopify.com/s/files/1/0493/9834/9974/files/microwave.jpg?v=1686043813"
+        },
+        {
+          "name": "Black+Decker 1000W Countertop Microwave",
+          "price": 89.99,
+          "url": "https://www.amazon.com/Black-Decker-Microwave-1000-White/dp/B06WD3NMQ5",
+          "image": "https://5.imimg.com/data5/NU/QE/MY-8657522/microwave-oven.jpg"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Cuisinart Convection Microwave",
+          "price": 199.99,
+          "url": "https://www.amazon.com/Cuisinart-CMW-200-1-2-Cubic-Foot-Convection-Microwave/dp/B001C2J0FG",
+          "image": "https://5.imimg.com/data5/NU/QE/MY-8657522/microwave-oven.jpg"
+        },
+        {
+          "name": "LG NeoChef Smart Inverter Microwave",
+          "price": 249.99,
+          "url": "https://www.lg.com/in/microwave-ovens/neochef-smart-inverter-microwave/?ec_model_status_code=Active",
+          "image": "https://5.imimg.com/data5/NU/QE/MY-8657522/microwave-oven.jpg"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Sharp Superheated Steam Microwave",
+          "price": 599.99,
+          "url": "https://www.amazon.in/Healsio-Super-heated-Grilling-Heating-Roasting/dp/B07Q35NFNG",
+          "image": "https://www.hindustantimes.com/ht-img/img/2023/12/11/550x309/oven_1702285600024_1702285613171.jpg"
+        }
+      ]
+    }
+  },
+  {
+    "kitchen_sinks": {
+      "affordable": [
+        {
+          "name": "Kraus KHU100-33 Undermount Single Bowl Kitchen Sink",
+          "price": 179.00,
+          "url": "https://www.amazon.in/Kraus-KHU100-32-32-inch-Undermount-Single/dp/B0767K878N",
+          "image": "https://res.cloudinary.com/american-bath-group/image/upload/c_scale,q_100,w_1520/v1632382060/websites-product-info-and-content/swan/content/products/kitchen/kitchen-sinks/swan-featureproduct-kitchensinks5.jpg"
+        },
+        {
+          "name": "Blanco Diamond Silgranit Drop-In Double Bowl Kitchen Sink",
+          "price": 249.00,
+          "url": "https://www.blanco.com/us-en/sinks/diamond-f/",
+          "image": "https://www.kraususa.com/media/wysiwyg/Kitchen_Sinks_drop-in_topmount.jpg"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Kohler Prolific Single Bowl Farmhouse Kitchen Sink",
+          "price": 599.00,
+          "url": "https://www.amazon.com/Workstation-Accessories-Undermount-installation-K-23651-NA/dp/B077YVB9HP",
+          "image": "https://hips.hearstapps.com/hmg-prod/images/workstation-sinks-64270dd10a9d6.jpeg?crop=1.00xw:0.751xh;0,0.139xh&resize=640:*"
+        },
+        {
+          "name": "Franke Maris Quartz Double Bowl Kitchen Sink",
+          "url": "https://www.amazon.com/Workstation-Accessories-Undermount-installation-K-23651-NA/dp/B077YVB9HP",
+          "image": "https://www.ikea.com/in/en/images/products/vresjoen-inset-sink-1-bowl-stainless-steel__1204052_pe906566_s5.jpg?f=s",
+          "price": 799.00
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Rohl Shaw Farmhouse Apron Front Sink",
+          "price": 2995.00,
+          "url": "https://houseofrohl.com/classic-shaker-single-bowl-farmhouse-apron-front-fireclay-kitchen-sink-white-ms3018wh/",
+          "image": "https://leobath.in/wp-content/uploads/Imported-handmade-kitchen-sink-with-RO-tap-and-Digital-Display.webp"
+        }
+      ]
+    }
+  },
+  {
+    "clocks": {
+      "affordable": [
+        {
+          "name": "Alessi Time Out Wall Clock",
+          "price": 75.00,
+          "url": "https://www.amazon.in/Alessi-Firenze-Wall-Clock-Black/dp/B00FARICNU",
+          "image": "https://5.imimg.com/data5/SELLER/Default/2023/6/317813651/BB/NI/PZ/17840080/unique-metal-acrylic-abstract-digital-wall-clock-design-ideas-copy-2--500x500.jpeg"
+        }
+      ],
+      "mid-range": [
+        {
+          "name": "Shinola Runwell Automatic Watch",
+          "price": 750.00,
+          "url": "https://www.shinola.com/home/clocks/wall-clocks.html",
+          "image": "https://images-cdn.ubuy.co.in/644a3a7e3a2ceb18a67746e2-jujuda-large-wall-clock-for-living-room.jpg"
+        },
+        {
+          "name": "Herman Miller Nelson Ball Clock",
+          "price": 450.00,
+          "url": "https://store.hermanmiller.com/decor-wall-decor-clocks/nelson-ball-clock/1745.html?lang=en_US",
+          "image": "https://apkamart.com/cdn/shop/files/20230622_174000_600x.jpg?v=1688546889"
+        }
+      ],
+      "high-end": [
+        {
+          "name": "Jaeger-LeCoultre Reverso Classic Grande Reverso",
+          "price": 13000.00,
+          "url": "https://www.chrono24.in/jaegerlecoultre/table-clock--id27551920.htm",
+          "image": "https://apkamart.com/cdn/shop/files/20230622_173813_600x.jpg?v=1688546934"
+        }
+      ]
+    }
+  }
+]
