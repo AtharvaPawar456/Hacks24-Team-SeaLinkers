@@ -245,6 +245,11 @@
           />
           <!-- <div class="text-xl font-bold text-center">itemName</div> -->
           <div class="my-4">
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+              <a href="{% url 'Budget' genimgid=iData.id %}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
+            </div>
             <div class="text-left text-xs mb-4">
               <b>Model : </b>{{ iData.modelName }}
             </div>
@@ -252,7 +257,6 @@
               <b>Prompt : <br /></b>{{ iData.prompt }}
             </div>
             
-            <div class="text-left text-xs text-yellow-400 text-center p-2 border w-2/6 mt-4">Revision</div>
 
           </div>
         </div>

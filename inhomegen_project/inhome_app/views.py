@@ -126,6 +126,24 @@ def dashboard_v2(request, proj_name):
 
 
 
+@login_required
+def Budget(request, genimgid):
+
+    # Get the logged-in user's username
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+
+    # Pass the data to the template
+    context = {'imgData': imgData, 'proj_name' : genimgid}
+    
+    return render(request, 'inhome_app/budget.html', context)
+
+
+
 
 
 @login_required
@@ -362,7 +380,7 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
     # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
 
     # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
-    server_url = "https://64a8-35-236-168-131.ngrok-free.app/"
+    server_url = "https://624f-35-223-215-14.ngrok-free.app/"
     api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
 
 
