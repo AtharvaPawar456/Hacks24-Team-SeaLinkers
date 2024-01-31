@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/png" href="static/logo.png">
 
+    {% load static %}
+    
+    <link rel="icon" type="image/png" href="{% static 'inhome_app\setup\logo.png' %}">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <script src="static\tailwindcss.js"></script>
+    <script src="{% static 'inhome_app\setup\tailwindcss.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
     <style>
         .body-container {
