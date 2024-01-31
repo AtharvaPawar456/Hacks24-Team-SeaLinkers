@@ -126,6 +126,24 @@ def dashboard_v2(request, proj_name):
 
 
 
+@login_required
+def Budget(request, genimgid):
+
+    # Get the logged-in user's username
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+
+    # Pass the data to the template
+    context = {'imgData': imgData, 'proj_name' : genimgid}
+    
+    return render(request, 'inhome_app/budget.html', context)
+
+
+
 
 
 @login_required

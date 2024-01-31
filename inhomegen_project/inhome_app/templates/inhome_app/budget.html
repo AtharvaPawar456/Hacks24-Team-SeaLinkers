@@ -1,0 +1,67 @@
+{% extends 'inhome_app/base.html' %} {% block title %}inHomeGen | Generator{% endblock %}
+<div>{% block content %} {% load static %}</div>
+
+    <!-- Card -->
+    <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400 pt-20"
+    >
+        <img
+        src="{% static imgData.path  %}"
+        alt="genImg"
+        class="h-80 w-auto border-4 rounded-md mx-auto mb-4"
+        />
+        <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+        <div class="my-4">
+        
+        <div class="grid grid-cols-2 gap-4">
+            <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+            <a href="{% static imgData.path  %}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
+        </div>
+        <div class="text-left text-xs mb-4">
+            <b>Model : </b>{{ imgData.modelName }}
+        </div>
+        <div class="text-left text-xs">imgData
+            <b>Prompt : <br /></b>{{ imgData.prompt }}
+        </div>
+
+        <div class="text-3xl font-bold text-center">Recommended</div>
+        
+        <section class="text-gray-400" id="software">
+            <div
+              id="seasonalItems"
+              class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6 pb-6"
+            >
+      
+              <!-- Card -->
+              <div
+                class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400"
+              >
+                <img
+                  src="{% static imgData.path  %}"
+                  alt="genImg"
+                  class="h-80 w-auto border-4 rounded-md mx-auto mb-4"
+                />
+                <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+                <div class="my-4">
+                  
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+                    <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
+                  </div>
+                  <div class="text-left text-xs mb-4">
+                    <b>Model : </b>iData.modelName 
+                  </div>
+                  <div class="text-left text-xs">
+                    <b>Prompt :</b> 
+                  </div>
+                  
+      
+                </div>
+              </div>
+      
+            </div>
+          </section>
+
+        </div>
+    </div>
+
+{% endblock %}
