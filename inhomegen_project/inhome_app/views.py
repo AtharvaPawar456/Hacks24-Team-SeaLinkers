@@ -81,25 +81,37 @@ def addproject(request):
 
 @login_required
 def dashboard(request):
-    # return HttpResponse('Securix V2    |      index Page')
+
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    # userData = ImgDetails.objects.filter(user_name=logedIn_user, projName=proj_name)
+
+
+    # Pass the data to the template
+    context = {'userData': ""}
+    
+    return render(request, 'inhome_app/index.html', context)
+
+
+
+@login_required
+def dashboard_v2(request, proj_name):
 
     # Get the logged-in user's username
     logedIn_user = request.user.username
     
     # Query the database to get all records for the logged-in user
     # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
-    userData = "ProjectDetails.objects.filter(user_name=logedIn_user)"
-
-
+    imgData = ImgDetails.objects.filter(user_name=logedIn_user, projName=proj_name)
 
 
 
     # Pass the data to the template
-    context = {'userSensorData': userData, 'viewJson': "jsonKeys"}
+    context = {'imgData': imgData, 'proj_name' : proj_name}
     
-    # Render the template with the data
     return render(request, 'inhome_app/index.html', context)
-    # return render(request, 'inhome_app/index.html', context)
 
 
 
@@ -143,10 +155,10 @@ def generate(request):
         # path = testpath(text="hello world", img_id=12)
         
         # Create a new node
-        # ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
+        ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
 
         # Redirect to a success page or another view
-        return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
+        return redirect('dashboard_v2', proj_name=proj_name)
 
     return render(request,'inhome_app/addproject.html')
 

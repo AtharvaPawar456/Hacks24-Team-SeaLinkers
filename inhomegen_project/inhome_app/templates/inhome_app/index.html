@@ -120,7 +120,7 @@
                     <!-- project name -->
                     <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
                     <input type="text" id="text" name="proj_name"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" placeholder="dream interior" required>
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1" placeholder="dream interior" value="{{ proj_name }}" required>
                     
                     <!-- room -->
                     <div class="my-4">
@@ -170,18 +170,23 @@
             
                 <div id="seasonalItems" class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6 pb-6">
                 
+                  {% if imgData %}
+                    {% for iData in imgData %}
+                
                     <!-- Card -->
                     <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400">
-                        <img src="{% static 'inhome_app\setup\sample.jpeg' %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <img src="{% static iData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
                         <!-- <div class="text-xl font-bold text-center">itemName</div> -->
                         <div class="my-4">
-                            <div class="text-left text-xs mb-4"><b>Model : </b>Shaun Model 2.0</div>
-                            <div class="text-left text-xs"><b>Prompt : <br></b>Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery.</div>
+                            <div class="text-left text-xs mb-4"><b>Model : </b>{{ iData.modelName }}</div>
+                            <div class="text-left text-xs"><b>Prompt : <br></b>{{ iData.prompt }}</div>
                         </div>
                     </div>
                 
                    
-                
+                    {% endfor %}
+                  {% endif %}
+                          
 
 
                 

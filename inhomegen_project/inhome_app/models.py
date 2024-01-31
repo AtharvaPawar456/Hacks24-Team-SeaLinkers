@@ -13,6 +13,7 @@ class ImgDetails(models.Model):
     prompt = models.CharField(max_length=500, default="")
     negprompt = models.CharField(max_length=500, default="")
 
+    modelName = models.CharField(max_length=50, default="")
     style = models.CharField(max_length=50, default="")
     path = models.CharField(max_length=120, default="")
 

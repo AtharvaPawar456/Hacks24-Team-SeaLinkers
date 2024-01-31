@@ -4,6 +4,9 @@ from . import views
 urlpatterns = [
     path("", views.index, name="index"),
     path("dashboard/", views.dashboard, name="dashboard"),
+    # path("dashboard_v2/", views.dashboard_v2, name="dashboard_v2"),
+    path('dashboard_v2/<str:proj_name>/', views.dashboard_v2, name='dashboard_v2'),
+
 
 
     # path("upload_file/", views.upload_file, name="upload_file"),
