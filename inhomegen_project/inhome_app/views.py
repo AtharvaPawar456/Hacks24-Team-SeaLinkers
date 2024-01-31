@@ -12,6 +12,8 @@ from ultralytics import YOLO
 from IPython.display import display, Image
 
 from django.utils import timezone
+from fuzzywuzzy import fuzz, process
+
 
 
 from django.contrib.auth.forms import UserCreationForm
@@ -180,6 +182,8 @@ def Budget(request, genimgid):
     with open(product_file, 'r') as file:
         product_data = json.load(file)
 
+    print("product_data : ", product_data)
+
     # List of products to match
     product_list = ['chair', 'table']
 
@@ -188,21 +192,36 @@ def Budget(request, genimgid):
         matches = {}
 
         for product in product_list:
-            # Find the best match using fuzzywuzzy
-            matched_product, score = process.extractOne(product, product_data.keys(), scorer=fuzz.token_set_ratio)
+            best_match = None
+            best_score = 0
 
-            # Check if the match score is above a certain threshold (adjust as needed)
-            if score >= 80:
-                matches[product] = matched_product
+            # Iterate through each dictionary in product_data
+            for category_dict in product_data:
+                for category_name, affordability_levels in category_dict.items():
+                    # Iterate through the affordability levels in each category
+                    for affordability, products in affordability_levels.items():
+                        # Iterate through the products in each affordability level
+                        for product_info in products:
+                            # Perform fuzzy matching with the product name
+                            score = fuzz.token_set_ratio(product, product_info['name'])
+
+                            # Update the best match if the current score is higher
+                            if score > best_score:
+                                best_score = score
+                                best_match = product_info
+
+            # Check if the best match score is above a certain threshold (adjust as needed)
+            if best_score >= 80:
+                matches[product] = best_match
 
         return matches
-    
+
     # Perform fuzzy string matching
     matched_products = match_products(product_list, product_data)
 
     # Print the matched products
     for key, value in matched_products.items():
-        print(f'Matched: {key} -> {value}')
+        print(f'Matched: {key} -> {value["name"]}')
 
     # Pass the data to the template
     context = {'imgData': imgData, 'proj_name' : genimgid, 'objects_init_list' : objects_init_list}
@@ -296,6 +315,8 @@ def generate(request):
         # path = testpath(text="hello world", img_id=12)
         detections=imagedetection(path)
         
+
+
         # Create a new node
         ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
 
