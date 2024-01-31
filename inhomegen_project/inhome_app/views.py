@@ -32,6 +32,10 @@ from django.core.files.storage import FileSystemStorage
 # C:\\Users\\Atharva Pawar\\Documents\\GitHub\\SECUIRX-v2\\securix_v2_project\\bandapp\\static\\playapp\\ResultsFiles\\codeGoat.py
 
 
+# media_full_path = settings.MEDIA_ROOT + "\playapp_data"
+media_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\generatedimg"
+
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Securix V2    |      index Page')
@@ -46,7 +50,18 @@ def index(request):
 #     return render(request,'inhome_app/addproject.html')
 
 
+@login_required
+def gallery(request):
 
+    logedIn_user = request.user.username
+    
+    imgData = ImgDetails.objects.all()
+
+
+    # Pass the data to the template
+    context = {'imgData': imgData}
+    
+    return render(request, 'inhome_app/gallery.html', context)
 
 
 @login_required
@@ -77,25 +92,37 @@ def addproject(request):
 
 @login_required
 def dashboard(request):
-    # return HttpResponse('Securix V2    |      index Page')
+
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    # userData = ImgDetails.objects.filter(user_name=logedIn_user, projName=proj_name)
+
+
+    # Pass the data to the template
+    context = {'userData': ""}
+    
+    return render(request, 'inhome_app/index.html', context)
+
+
+
+@login_required
+def dashboard_v2(request, proj_name):
 
     # Get the logged-in user's username
     logedIn_user = request.user.username
     
     # Query the database to get all records for the logged-in user
     # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
-    userData = "ProjectDetails.objects.filter(user_name=logedIn_user)"
-
-
+    imgData = ImgDetails.objects.filter(user_name=logedIn_user, projName=proj_name)
 
 
 
     # Pass the data to the template
-    context = {'userSensorData': userData, 'viewJson': "jsonKeys"}
+    context = {'imgData': imgData, 'proj_name' : proj_name}
     
-    # Render the template with the data
     return render(request, 'inhome_app/index.html', context)
-    # return render(request, 'inhome_app/index.html', context)
 
 
 
@@ -104,39 +131,70 @@ def dashboard(request):
 @login_required
 def generate(request):
     if request.method == 'POST':
-        proj_name   = request.POST.get('proj_name')
-        room_name   = request.POST.get('room_name')
+        # Get the values from the form
+        proj_name = request.POST.get('proj_name')
+        selected_room = request.POST.get('selectedroom')
+        selected_model = request.POST.get('selectedmodel')  # Assuming this is intentional
 
-        user_name   = request.user.username
-
-        userData = "ProjectDetails.objects.filter(user_name=user_name, name=proj_name)"
-
-        if userData:
-            for entry in userData:
-                if entry.jsonData:
-                    json_data = json.loads(entry.jsonData)
-
-
-        project_details = "get_object_or_404(ProjectDetails, user_name=user_name, name=proj_name)"
-
-        # Update the jsonData field
-        new_json_data = f'{"updated_key": room_name}'  # Replace with your updated JSON data
-        json_data[room_name]=""
-        project_details.jsonData = new_json_data
-
-        # Save the changes to the database
-        project_details.save()
+        _style_templateslist_id = int(request.POST.get('style_templateslist_id'))  
+        _looks = int(request.POST.get('looks'))  
+        _styles = int(request.POST.get('styles'))  
+        _artists = int(request.POST.get('artists'))  
+        _color_palettes = int(request.POST.get('color_palettes'))  
+        _artistic_params = int(request.POST.get('artistic_params'))  
+        
+ 
 
 
-        # jsonData = ''
+
+
+        prompt = request.POST.get('prompt')
+        negative_prompt = request.POST.get('negativePrompt')
+
+        logedIn_user = request.user.username
+
+        dataandtime = timezone.now()
+        pub_date     = dataandtime.date()
+        pub_time     = dataandtime.strftime('%H:%M:%S')
+
+
+        # Print the values to the terminal
+        print(f"Project Name: {proj_name}")
+        print(f"Selected Room: {selected_room}")
+        print(f"Selected Model: {selected_model}")
+        print(f"Prompt: {prompt}")
+        print(f"Negative Prompt: {negative_prompt}")
+
+
+        print("_style_templateslist_id : ", _style_templateslist_id)  
+        print("_looks : ", _looks)  
+        print("_styles : ", _styles)  
+        print("_artists : ", _artists)  
+        print("_color_palettes : ", _color_palettes)  
+        print("_artistic_params : ", _artistic_params) 
+
+        style = 'minimal design'
+
+        # Get the last ImgDetails object
+        last_img_details = ImgDetails.objects.last()
+
+        # Calculate the next ID
+        next_id = last_img_details.id + 1 if last_img_details else 1
+        
+
+        # Add further processing logic here, if needed
+        path = generate_img_reqapi(prompt, negative_prompt, img_id=next_id, 
+                style_templateslist_id=_style_templateslist_id, look_id=_looks, styles_id=_styles, artists_id=_artists, color_palette_id=_color_palettes, artistic_params_id=_artistic_params)
+        # path = testpath(text="hello world", img_id=12)
         
         # Create a new node
-        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+        # ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
 
         # Redirect to a success page or another view
-        return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
+        return redirect('dashboard_v2', proj_name=proj_name)
 
     return render(request,'inhome_app/addproject.html')
+
 
 
 
@@ -272,6 +330,172 @@ def view_data(request):
 
 http://127.0.0.1:8000/view_data/?proj=alpha
 '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import os
+import requests
+import base64
+from PIL import Image
+from io import BytesIO
+
+def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templateslist_id=0, look_id=0, styles_id=0, artists_id=0, color_palette_id=0, artistic_params_id=0):
+
+    # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
+
+    # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
+    server_url = "https://7320-34-125-152-171.ngrok-free.app/"
+    api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
+
+
+
+
+
+
+    # Example usage:
+    # input_prompt = "Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery, gray pallet minimalistic: tv, sofa, table"
+
+    # neg_prompt = "blurry"
+
+    style_templateslist_id = 1  # Selecting "cozy" from style_templateslist
+    look_id = 2  # Selecting "minimalistic and sleek" from looks
+    styles_id = 3  # Selecting "industrial" from styles
+    artists_id = 1  # Selecting "interior_designer2" from artists
+    color_palette_id = 1  # Selecting "Earthy and Natural"
+    artistic_params_id = 2  # Selecting "Furniture Styles (e.g., modern, vintage, eclectic)"
+
+    # Map style to the corresponding prompt template for home interiors
+    def generate_home_interior_config(input_prompt, style_templateslist_id=0, look_id=0, styles_id=0, artists_id=0, color_palette_id=0, content_id=0, artistic_params_id=0):
+        looks = ["", "modern and luxurious", "vintage and cozy", "minimalistic and sleek", "rustic and charming", "bohemian and eclectic"]
+        styles = ["", "contemporary", "traditional", "industrial", "scandinavian", "mid-century modern"]
+        artists = ["", "Kelly Wearstler", "Nate Berkus", "Candice Olson", "Joanna Gaines", "Philippe Starck"]
+
+
+        style_templateslist = ["", "elegant", "cozy", "minimalistic", "eclectic", "industrial", "vibrant", "natural"]
+        style_templates = {
+            'elegant':      f'theme is an elegant home interior with sophisticated touches,',
+            'cozy':         f'theme is a cozy and inviting home space with warm colors and textures,',
+            'minimalistic': f'theme is a minimalistic home design focusing on simplicity and functionality,',
+            'eclectic':     f'theme is an eclectic mix of styles, creating a vibrant and unique atmosphere,',
+            'industrial':   f'theme is an industrial-inspired interior with raw materials and exposed elements,',
+            'vibrant':      f'theme is a vibrant and lively home decor with bold colors and patterns,',
+            'natural':      f'theme is a natural and organic home environment, bringing the outdoors inside,',
+        }
+
+        # resolutions = ["High Resolution (e.g., 3000x2000 pixels)", "Medium Resolution (e.g., 1500x1000 pixels)", "Low Resolution (e.g., 800x600 pixels)"]
+        color_palettes = ["", "Neutral Tones (e.g., whites, grays, beiges)", "Earthy and Natural (e.g., greens, browns, muted tones)", "Vibrant and Bold (e.g., reds, blues, yellows)", "Monochromatic (e.g., shades of a single color)", "Pastel Colors (e.g., soft pinks, blues, greens)"]
+        artistic_params = ["", "Texture Emphasis (e.g., emphasis on wood, stone, or fabric textures)", "Lighting Style (e.g., natural light, ambient, dramatic)", "Furniture Styles (e.g., modern, vintage, eclectic)", "Pattern Usage (e.g., geometric patterns, floral prints)", "Wall Art and Decor (e.g., paintings, sculptures, wall hangings)"]
+
+        # Use the input_prompt and other parameters to construct the final configuration
+        configuration = f'Input: {input_prompt}, '
+        configuration += f'Style: {styles[styles_id]} with {style_templates[style_templateslist[style_templateslist_id]]}'
+        configuration += f'Look: {looks[look_id]}, '
+        configuration += f'Artist: {artists[artists_id]}, '
+        configuration += f'Color Palette: {color_palettes[color_palette_id]}, '
+        configuration += f'Artistic Parameters: {artistic_params[artistic_params_id]}'
+
+        return configuration
+
+    prompt = generate_home_interior_config(input_prompt, style_templateslist_id, 
+                                        look_id, styles_id, artists_id, color_palette_id, artistic_params_id)
+
+    print("prompt :", prompt)
+    
+    # Example payload for retro style
+    payload_retro = {
+        "input_prompt": prompt,
+        "input_neg_prompt": negative_prompt,
+        "num_inference_steps": 70, #default = 30,
+    }
+
+    '''
+            input_prompt = request.json['input_prompt']
+            style_templateslist_id = request.json['style_templateslist_id']
+            look_id = request.json['look_id']
+            styles_id = request.json['styles_id']
+            artists_id = request.json['artists_id']
+    '''
+
+    # try:
+    #     # Make a POST request to the API
+    #     response_retro = requests.post(api_url, json=payload_retro)
+    #     # print(response_retro.json())
+
+    #     # Check if the request was successful (status code 200)
+    #     if response_retro.status_code == 200:
+    #         print(f"Image generated successfully for prompt : {payload_retro['input_prompt']}.")
+    #         print("message : ", response_retro.json()["message"])
+    #         print("full_prompt : ", response_retro.json()["full_prompt"])
+
+
+    #         # Create the output directory if it doesn't exist
+    #         # file_path = media_full_path + "\\" + img_id + "genimg.jpeg"
+    #         file_path = os.path.join(media_full_path, f"{str(img_id)}genimg.jpeg")
+
+    #         print("api download - video file_path: ", file_path)
+
+    #         # os.makedirs(file_path, exist_ok=True)
+    #         # saved_img_path = "current_new.jpeg"
+    #         # image_path = response_retro.json()["image_path"]
+
+    #         # Save the base64-encoded image to a file in JPEG format
+    #         encoded_image = response_retro.json()["image_base64"]
+    #         image_data = base64.b64decode(encoded_image)
+    #         image = Image.open(BytesIO(image_data))
+    #         image.save(file_path)
+
+            
+    #         print(f"Image saved at: {file_path}")
+    #         return file_path
+
+    #         # image.show()        # Open and display the saved image
+
+    #     else:
+    #         print("Error:", response_retro.json())
+
+    # except Exception as e:
+    #     print("Error:", str(e))
+
+
+
+
+def testpath(text, img_id):
+    # Define the file path
+    # path = media_full_path + "\\" + img_id + "genimg.jpeg"
+
+    file_path = os.path.join(media_full_path, f"{str(img_id)}_output.txt")
+
+    # Save the text to the file
+    with open(file_path, 'w') as file:
+        file.write(text)
+    print("file_path :", file_path)
+    return file_path
+
+# C:\\Users\\Atharva Pawar\\Documents\\GitHub\\Hacks24-Team-SeaLinkers\\inhomegen_project\\securixapp\\static\\inhome_app\\generatedimg\\12_output.txt
+
+# C:\Users\Atharva Pawar\Documents\GitHub\Hacks24-Team-SeaLinkers\inhomegen_project\inhome_app\static\inhome_app\generatedimg\gen1.jpeg
+
+
+
+
 
 
 
