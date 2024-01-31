@@ -8,6 +8,12 @@ urlpatterns = [
 
     # path("upload_file/", views.upload_file, name="upload_file"),
 
+    path("addproject/", views.addproject, name="addproject"),
+    path("addroom/", views.addroom, name="addroom"),
+
+    path("generate/", views.generate, name="generate"),
+
+    path("view_data/", views.view_data, name="view_data"),
 
     # path("showresult/<int:myid>", views.showresult, name="showresult"),
 
