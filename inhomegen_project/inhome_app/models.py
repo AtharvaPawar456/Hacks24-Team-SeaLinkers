@@ -10,8 +10,8 @@ class ImgDetails(models.Model):
     roomName = models.CharField(max_length=120, default="")
     
 
-    prompt = models.CharField(max_length=50, default="")
-    negprompt = models.CharField(max_length=50, default="")
+    prompt = models.CharField(max_length=500, default="")
+    negprompt = models.CharField(max_length=500, default="")
 
     style = models.CharField(max_length=50, default="")
     path = models.CharField(max_length=120, default="")

@@ -32,6 +32,10 @@ from django.core.files.storage import FileSystemStorage
 # C:\\Users\\Atharva Pawar\\Documents\\GitHub\\SECUIRX-v2\\securix_v2_project\\bandapp\\static\\playapp\\ResultsFiles\\codeGoat.py
 
 
+# media_full_path = settings.MEDIA_ROOT + "\playapp_data"
+media_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\generatedimg"
+
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Securix V2    |      index Page')
@@ -104,39 +108,48 @@ def dashboard(request):
 @login_required
 def generate(request):
     if request.method == 'POST':
-        proj_name   = request.POST.get('proj_name')
-        room_name   = request.POST.get('room_name')
+        # Get the values from the form
+        proj_name = request.POST.get('proj_name')
+        selected_room = request.POST.get('selectedroom')
+        selected_model = request.POST.get('selectedmodel')  # Assuming this is intentional
 
-        user_name   = request.user.username
+        prompt = request.POST.get('prompt')
+        negative_prompt = request.POST.get('negativePrompt')
 
-        userData = "ProjectDetails.objects.filter(user_name=user_name, name=proj_name)"
+        logedIn_user = request.user.username
 
-        if userData:
-            for entry in userData:
-                if entry.jsonData:
-                    json_data = json.loads(entry.jsonData)
-
-
-        project_details = "get_object_or_404(ProjectDetails, user_name=user_name, name=proj_name)"
-
-        # Update the jsonData field
-        new_json_data = f'{"updated_key": room_name}'  # Replace with your updated JSON data
-        json_data[room_name]=""
-        project_details.jsonData = new_json_data
-
-        # Save the changes to the database
-        project_details.save()
+        dataandtime = timezone.now()
+        pub_date     = dataandtime.date()
+        pub_time     = dataandtime.strftime('%H:%M:%S')
 
 
-        # jsonData = ''
+        # Print the values to the terminal
+        print(f"Project Name: {proj_name}")
+        print(f"Selected Room: {selected_room}")
+        print(f"Selected Model: {selected_model}")
+        print(f"Prompt: {prompt}")
+        print(f"Negative Prompt: {negative_prompt}")
+
+        style = 'minimal design'
+
+        # Get the last ImgDetails object
+        last_img_details = ImgDetails.objects.last()
+
+        # Calculate the next ID
+        next_id = last_img_details.id + 1 if last_img_details else 1
+
+        # Add further processing logic here, if needed
+        path = generate_img_reqapi(prompt, img_id=next_id)
+        # path = testpath(text="hello world", img_id=12)
         
         # Create a new node
-        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+        # ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
 
         # Redirect to a success page or another view
         return redirect('dashboard')  # Change 'node_list' to the actual URL name for the node list view
 
     return render(request,'inhome_app/addproject.html')
+
 
 
 
@@ -272,6 +285,124 @@ def view_data(request):
 
 http://127.0.0.1:8000/view_data/?proj=alpha
 '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import os
+import requests
+import base64
+from PIL import Image
+from io import BytesIO
+
+def generate_img_reqapi(prompt, img_id):
+
+
+    # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
+
+    # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
+    server_url = "https://1a45-34-125-152-171.ngrok-free.app/"
+    api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
+
+    # Example payload for retro style
+    payload_retro = {
+        # "input_prompt": "minimalistic living room",
+        # "input_prompt": "Generate an image of an old-style bedroom with a luxurious king-size bed, adorned with classic furniture, bathed in warm lighting, and featuring a charming French window overlooking serene scenery, gray pallet minimalistic: tv, sofa, table ",
+        "input_prompt": prompt,
+        "style_templateslist_id": 1,
+        "look_id": 4,    #max =  7
+        "styles_id": 4,  #max =  5
+        "artists_id": 3, #max =  4
+        "num_inference_steps": 70, #default = 30,
+    }
+
+    '''
+            input_prompt = request.json['input_prompt']
+            style_templateslist_id = request.json['style_templateslist_id']
+            look_id = request.json['look_id']
+            styles_id = request.json['styles_id']
+            artists_id = request.json['artists_id']
+    '''
+
+    try:
+        # Make a POST request to the API
+        response_retro = requests.post(api_url, json=payload_retro)
+        # print(response_retro.json())
+
+        # Check if the request was successful (status code 200)
+        if response_retro.status_code == 200:
+            print(f"Image generated successfully for prompt : {payload_retro['input_prompt']}.")
+            print("message : ", response_retro.json()["message"])
+            print("full_prompt : ", response_retro.json()["full_prompt"])
+
+
+            # Create the output directory if it doesn't exist
+            # file_path = media_full_path + "\\" + img_id + "genimg.jpeg"
+            file_path = os.path.join(media_full_path, f"{str(img_id)}genimg.jpeg")
+
+            print("api download - video file_path: ", file_path)
+
+            # os.makedirs(file_path, exist_ok=True)
+            # saved_img_path = "current_new.jpeg"
+            # image_path = response_retro.json()["image_path"]
+
+            # Save the base64-encoded image to a file in JPEG format
+            encoded_image = response_retro.json()["image_base64"]
+            image_data = base64.b64decode(encoded_image)
+            image = Image.open(BytesIO(image_data))
+            image.save(file_path)
+
+            
+            print(f"Image saved at: {file_path}")
+            return file_path
+
+            # image.show()        # Open and display the saved image
+
+        else:
+            print("Error:", response_retro.json())
+
+    except Exception as e:
+        print("Error:", str(e))
+
+
+
+
+def testpath(text, img_id):
+    # Define the file path
+    # path = media_full_path + "\\" + img_id + "genimg.jpeg"
+
+    file_path = os.path.join(media_full_path, f"{str(img_id)}_output.txt")
+
+    # Save the text to the file
+    with open(file_path, 'w') as file:
+        file.write(text)
+    print("file_path :", file_path)
+    return file_path
+
+# C:\\Users\\Atharva Pawar\\Documents\\GitHub\\Hacks24-Team-SeaLinkers\\inhomegen_project\\securixapp\\static\\inhome_app\\generatedimg\\12_output.txt
+
+# C:\Users\Atharva Pawar\Documents\GitHub\Hacks24-Team-SeaLinkers\inhomegen_project\inhome_app\static\inhome_app\generatedimg\gen1.jpeg
+
+
+
+
 
 
 

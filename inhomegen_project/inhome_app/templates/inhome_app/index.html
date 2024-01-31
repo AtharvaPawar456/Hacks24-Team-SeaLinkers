@@ -114,7 +114,8 @@
             <div class="p-4 text-xl mt-4 border rounded-md">
               <div class="mb-2 text-yellow-500 text-center"><i class="fa-solid fa-layer-group mr-2"></i>Project Details</div>
               
-              <form action="your_action_url" method="POST" class="px-2">
+              <form action="{% url 'generate' %}" method="POST" class="px-2">
+                    {% csrf_token %}
                 
                     <!-- project name -->
                     <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
@@ -123,8 +124,8 @@
                     
                     <!-- room -->
                     <div class="my-4">
-                      <label for="selectOption" class="mr-1">Select Room :</label>
-                      <select id="selectOption" name="selectedOption" class="bg-black text-sm border rounded-sm p-1">
+                      <label for="selectedroom" class="mr-1">Select Room :</label>
+                      <select id="selectedroom" name="selectedroom" class="bg-black text-sm border rounded-sm p-1">
                         <option value="Hall">Hall</option>
                         <option value="Kitchen">Kitchen</option>
                         <option value="Bedroom">Bedroom</option>
@@ -133,10 +134,10 @@
                     </div>
 
 
-                    <label for="selectOption" class="mr-1">Select Model:</label>
-                    <select id="selectOption" name="selectedOption" class="bg-black text-sm border rounded-sm p-1">
-                      <option value="option1">Shaun Model 2.0</option>
-                      <option value="option2">Dreambooth</option>
+                    <label for="selectedmodel" class="mr-1">Select Model:</label>
+                    <select id="selectedmodel" name="selectedmodel" class="bg-black text-sm border rounded-sm p-1">
+                      <option value="Shaun_Model">Shaun Model 2.0</option>
+                      <option value="Dreambooth">Dreambooth</option>
                       <!-- <option value="option3">Option 3</option> -->
                     </select>
                 
