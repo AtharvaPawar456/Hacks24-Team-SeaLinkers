@@ -36,8 +36,11 @@ import json
 import time
 import os
 
+import vtracer
+
+
 webui_server_url = 'http://127.0.0.1:7860'
-out_dir = "inhome_app\static\inhome_app\generatedimg"
+out_dir = r"C:\Users\Shaun\Desktop\Hackathons\TSEC 2024\inHomeGen\inhomegen_project\inhome_app\static\inhome_app\generatedimg"
 # media_full_path = settings.MEDIA_ROOT + "\playapp_data"
 # upload_file_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\uploaded_files"
 # results_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\ResultsFiles"
@@ -50,6 +53,7 @@ out_dir = "inhome_app\static\inhome_app\generatedimg"
 media_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\generatedimg"
 
 product_file = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\setup\\demo.json"
+svg_file = settings.STATIC_MEDIA_ROOT + "\\static\\inhome_app\\setup\\test.svg"
 
 
 # Create your views here.
@@ -64,6 +68,37 @@ def index(request):
 # def addproject(request):
 #     # return HttpResponse('Securix V2    |      index Page')
 #     return render(request,'inhome_app/addproject.html')
+
+def img2svg(inp, out):
+    # Minimal example: use all default values, generate a multicolor SVG
+    vtracer.convert_image_to_svg_py(inp, out)
+
+    # Single-color example. Good for line art, and much faster than full color:
+    vtracer.convert_image_to_svg_py(inp, out, colormode='binary')
+
+    # All the bells & whistles
+    vtracer.convert_image_to_svg_py(inp, out, colormode = 'color',         hierarchical = 'stacked',    mode = 'spline',             filter_speckle = 4,          color_precision = 6,         layer_difference = 16,       corner_threshold = 60,       length_threshold = 4.0,       max_iterations = 10,         splice_threshold = 45,       path_precision = 3)
+
+def convert_image_to_svg(request, myid):
+    # Assuming the image is associated with the provided ID in your model
+    image_object = ImgDetails.objects.get(id=myid)
+    input_image_path = image_object.path  # Adjust this based on your model structure
+    # output_svg_path = "path/to/your/output.svg"
+    output_svg_path = svg_file
+
+# <a href="{% url 'convert_image_to_svg' myid=myid %}" download="output.svg">Download SVG</a>
+
+    img2svg(input_image_path, output_svg_path)
+
+    # Read the generated SVG content
+    with open(output_svg_path, 'r') as svg_file:
+        svg_content = svg_file.read()
+
+    # Provide the SVG as a downloadable file
+    dataresponse = HttpResponse(svg_content, content_type="image/svg+xml")
+    dataresponse['Content-Disposition'] = f'attachment; filename="{image_object.image.name}.svg"'
+
+    return dataresponse
 
 
 @login_required
@@ -579,7 +614,7 @@ def generate_img_reqapi(input_prompt, negative_prompt, img_id, style_templatesli
     # api_url = "http://127.0.0.1:5000/generate_image"  # Update with your ngrok URL if needed
 
     # server_url = "https://0f2f-34-80-203-200.ngrok-free.app/"
-    server_url = "https://624f-35-223-215-14.ngrok-free.app/"
+    server_url = "https://7ab6-35-240-206-94.ngrok-free.app/"
     api_url = f"{server_url}generate_image"  # Update with your ngrok URL if needed
 
 

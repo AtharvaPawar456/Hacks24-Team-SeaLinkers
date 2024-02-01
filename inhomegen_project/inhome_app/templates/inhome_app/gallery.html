@@ -19,6 +19,7 @@
                     <!-- Card -->
                     <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400">
                         <img src="{% static iData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4"> 
+                        <a href="{% url 'convert_image_to_svg' myid=iData.id %}" download="output.svg"><i class="fa-solid fa-download mr-2"></i>SVG</a>
                         <!-- <div class="text-xl font-bold text-center">itemName</div> -->
                         <div class="my-4">
                             <div class="text-left text-xs mb-4"><b>Model : </b>{{ iData.modelName }}</div>

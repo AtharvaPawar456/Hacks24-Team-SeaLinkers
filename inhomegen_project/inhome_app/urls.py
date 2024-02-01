@@ -25,6 +25,7 @@ urlpatterns = [
 
     # path("showresult/<int:myid>", views.showresult, name="showresult"),
 
+    path('convert_image_to_svg/<int:myid>/', views.convert_image_to_svg, name='convert_image_to_svg'),
 
     path('user_login/',      views.user_login,     name='user_login'),
     path('user_logout/',     views.user_logout,    name='user_logout'),
