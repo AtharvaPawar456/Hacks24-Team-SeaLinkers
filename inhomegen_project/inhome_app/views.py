@@ -37,8 +37,7 @@ import time
 import os
 
 webui_server_url = 'http://127.0.0.1:7860'
-
-out_dir = 'static/inhome_app/generatedimg/'
+out_dir = "inhome_app\static\inhome_app\generatedimg"
 # media_full_path = settings.MEDIA_ROOT + "\playapp_data"
 # upload_file_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\uploaded_files"
 # results_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\ResultsFiles"
@@ -302,7 +301,7 @@ def revision(request):
         # prompt = "Add candles in the room and make"
         filename = f"{imgData.projName}_v{str(imgData.id)}_{timestamp()}"
         print("Hello",imgData.path)
-        newpath = img2img(prompt,"static/"+imgData.path, filename)
+        newpath = img2img(prompt,imgData.path, filename)
 
         detections=imagedetection(newpath)
 
@@ -738,7 +737,7 @@ def call_img2img_api(filename,**payload):
     response = call_api('sdapi/v1/img2img', **payload)
     for index, image in enumerate(response.get('images')):
         # save_path = os.path.join(out_dir_i2i, f'img2img-{timestamp()}-{index}.png')
-        save_path = out_dir+filename+".png"
+        save_path = out_dir+f"\{filename}"+".png"
         decode_and_save_base64(image, save_path)
     return save_path
 
