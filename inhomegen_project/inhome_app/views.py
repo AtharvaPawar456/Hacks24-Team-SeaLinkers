@@ -1,4 +1,6 @@
 #  i have created this file - GTA
+from datetime import datetime
+# import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from .models import UserData, ImgDetails
@@ -6,7 +8,7 @@ import random
 import os
 import requests
 import json
-import ast
+import ast, subprocess, re
 from ultralytics import YOLO
 
 from IPython.display import display, Image
@@ -28,7 +30,15 @@ from django.views.decorators.csrf import csrf_exempt
 
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+import urllib.request
+import base64
+import json
+import time
+import os
 
+webui_server_url = 'http://127.0.0.1:7860'
+
+out_dir = 'static/inhome_app/generatedimg/'
 # media_full_path = settings.MEDIA_ROOT + "\playapp_data"
 # upload_file_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\uploaded_files"
 # results_full_path = settings.STATIC_MEDIA_ROOT + "\\static\\bandapp\\ResultsFiles"
@@ -115,6 +125,24 @@ def dashboard(request):
 
 
 @login_required
+def viewprojects(request):
+
+    # Get the logged-in user's username
+    logedIn_user = request.user.username
+    
+    # Query the database to get all records for the logged-in user
+    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+    unique_proj_names = ImgDetails.objects.filter(user_name=logedIn_user).values_list('projName', flat=True).distinct()
+
+
+    # Pass the data to the template
+    context = {'imgData': unique_proj_names,}
+    
+    return render(request, 'inhome_app/viewproj.html', context)
+
+
+
+@login_required
 def dashboard_v2(request, proj_name):
 
     # Get the logged-in user's username
@@ -158,11 +186,11 @@ def imagedetection(path):
             if any(map(str.isdigit, obj[1:])):
                 pass
             else: 
-                objects[obj[1:]]=obj[0]
+                objects[f"{obj[1:]}"]=obj[0]
     else:
         print("No objects detected.")
         objects["Objects"]="None"
-    return objects
+    return str(objects).replace('\'','"')
 
 @login_required
 def Budget(request, genimgid):
@@ -175,18 +203,22 @@ def Budget(request, genimgid):
     imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
 
     # Convert the string to a list using ast.literal_eval
-    objects_init_list = ast.literal_eval(imgData.objectsinit)
+    # objects_init_list = ast.literal_eval(imgData.objectsinit)
 
 
     # Read the JSON data from the file
     with open(product_file, 'r') as file:
         product_data = json.load(file)
 
-    print("product_data : ", product_data)
+    # print("product_data : ", product_data)
 
     # List of products to match
-    product_list = ['chair', 'table']
-
+    product_list = json.loads(imgData.objectsinit)
+    product_list_keys=list(product_list.keys())
+    product_data_keys=[]
+    for i in range(10):
+        product_data_keys.append(list(product_data[i].keys())[0])
+    print(product_data_keys,product_list_keys)
     # Function to perform fuzzy string matching
     def match_products(product_list, product_data):
         matches = {}
@@ -197,7 +229,7 @@ def Budget(request, genimgid):
 
             # Iterate through each dictionary in product_data
             for category_dict in product_data:
-                for category_name, affordability_levels in category_dict.items():
+                for affordability_levels in category_dict.items():
                     # Iterate through the affordability levels in each category
                     for affordability, products in affordability_levels.items():
                         # Iterate through the products in each affordability level
@@ -217,39 +249,92 @@ def Budget(request, genimgid):
         return matches
 
     # Perform fuzzy string matching
-    matched_products = match_products(product_list, product_data)
-
-    # Print the matched products
-    for key, value in matched_products.items():
-        print(f'Matched: {key} -> {value["name"]}')
+    # matched_products = match_products(product_list_keys, product_data)
+    matched_products={"Table":"1","Chair":"2"}
+    # Print the matched products    
+    # for key, value in matched_products.items():
+    #     print(f'Matched: {key} -> {value["name"]}')
 
     # Pass the data to the template
-    context = {'imgData': imgData, 'proj_name' : genimgid, 'objects_init_list' : objects_init_list}
+    fin=json.loads( imgData.objectsinit)
+    context = {'imgData': imgData, 'proj_name' : genimgid, 'objects_init_list' :fin}
     
     return render(request, 'inhome_app/budget.html', context)
 
 
+
+def timestamp():
+    return datetime.fromtimestamp(time.time()).strftime("%Y%m%d-%H%M%S")
 
 
 @login_required
-def Revision(request, genimgid):
+def revision(request):
 
-    # Get the logged-in user's username
-    logedIn_user = request.user.username
-    
-    # Query the database to get all records for the logged-in user
-    # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
-    imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+    if request.method == 'POST':
+        genimgid   = request.POST.get('genimgid')
+        print("Important\n",genimgid)
+        proj_name = request.POST.get('proj_name')
+        # selected_room = request.POST.get('selectedroom')
+        # selected_model = request.POST.get('selectedmodel')  # Assuming this is intentional
 
-    prompt = "Add candles in the room and make "
+        style = 'minimal design'
 
-    # apicall.img2img(prompt,imgData.path)
+        prompt = request.POST.get('prompt')
+        negative_prompt = request.POST.get('negativePrompt')
 
 
-    # Pass the data to the template
-    context = {'imgData': imgData, 'proj_name' : genimgid}
-    
-    return render(request, 'inhome_app/budget.html', context)
+        dataandtime = timezone.now()
+        pub_date     = dataandtime.date()
+        pub_time     = dataandtime.strftime('%H:%M:%S')
+
+        
+        # Create a new node
+        # ProjectDetails.objects.create(name=proj_name, user_name=user_name,  pub_date=pub_date, pub_time=pub_time, jsonData=jsonData)
+
+
+        # return render(request,'inhome_app/addproject.html')
+
+        logedIn_user = request.user.username
+        
+        # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+        imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+        # prompt = "Add candles in the room and make"
+        filename = f"{imgData.projName}_v{str(imgData.id)}_{timestamp()}"
+        print("Hello",imgData.path)
+        newpath = img2img(prompt,"static/"+imgData.path, filename)
+
+        detections=imagedetection(newpath)
+
+
+        ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName="", prompt=prompt, negprompt="", modelName="", style=style, path=newpath, objectsinit=detections, pub_date=pub_date, pub_time=pub_time)
+
+        imgData = ImgDetails.objects.filter(user_name=logedIn_user)
+
+        # Pass the data to the template
+        context = {'imgData': imgData, 'proj_name' : genimgid}
+        
+        # return redirect('dashboard')
+        # return redirect('dashboard_v2', proj_name=proj_name)
+        return render(request, 'inhome_app/index.html', context)  # Change 'node_list' to the actual URL name for the node list view
+
+
+    else:
+        # if request.method == 'GET':
+        # Get parameters from the GET request
+        genimgid = request.GET.get('genimgid', '')
+
+        logedIn_user = request.user.username
+        
+        # userData = ProjectDetails.objects.filter(user_name=logedIn_user)
+        imgData = ImgDetails.objects.filter(user_name=logedIn_user, id=genimgid).first()
+
+        context = {'imgData': imgData, 'genimgid' : genimgid}
+
+        # Redirect to a success page or another view
+        return render(request, 'inhome_app/revision.html', context)  # Change 'node_list' to the actual URL name for the node list view
+
+# http://example.com/revision/?genimgid=your_project_name
 
 
 
@@ -312,13 +397,16 @@ def generate(request):
         # Add further processing logic here, if needed
         path = generate_img_reqapi(prompt, negative_prompt, img_id=next_id, 
                 style_templateslist_id=_style_templateslist_id, look_id=_looks, styles_id=_styles, artists_id=_artists, color_palette_id=_color_palettes, artistic_params_id=_artistic_params)
+        print("rev path : ", path)
         # path = testpath(text="hello world", img_id=12)
         detections=imagedetection(path)
+        print("object detections : ", detections)
+
         
 
 
         # Create a new node
-        ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path,  pub_date=pub_date, pub_time=pub_time)
+        ImgDetails.objects.create(user_name=logedIn_user, projName=proj_name, roomName=selected_room, prompt=prompt, negprompt=negative_prompt, modelName=selected_model, style=style, path=path, objectsinit=detections, pub_date=pub_date, pub_time=pub_time)
 
         # Redirect to a success page or another view
         return redirect('dashboard_v2', proj_name=proj_name)
@@ -623,7 +711,74 @@ def testpath(text, img_id):
 
 # C:\Users\Atharva Pawar\Documents\GitHub\Hacks24-Team-SeaLinkers\inhomegen_project\inhome_app\static\inhome_app\generatedimg\gen1.jpeg
 
+def encode_file_to_base64(path):
+    with open(path, 'rb') as file:
+        return base64.b64encode(file.read()).decode('utf-8')
 
+
+def decode_and_save_base64(base64_str, save_path):
+    with open(save_path, "wb") as file:
+        file.write(base64.b64decode(base64_str))
+
+
+def call_api(api_endpoint, **payload):
+    data = json.dumps(payload).encode('utf-8')
+    request = urllib.request.Request(
+        f'{webui_server_url}/{api_endpoint}',
+        headers={'Content-Type': 'application/json'},
+        data=data,
+    )
+    response = urllib.request.urlopen(request)
+    return json.loads(response.read().decode('utf-8'))
+
+
+
+
+def call_img2img_api(filename,**payload):
+    response = call_api('sdapi/v1/img2img', **payload)
+    for index, image in enumerate(response.get('images')):
+        # save_path = os.path.join(out_dir_i2i, f'img2img-{timestamp()}-{index}.png')
+        save_path = out_dir+filename+".png"
+        decode_and_save_base64(image, save_path)
+    return save_path
+
+def img2img(prompt,path,filename):
+    init_images = [
+        # encode_file_to_base64(r"C:\Users\Shaun\Downloads\current_new.jpeg.jpg"),
+        encode_file_to_base64(path),
+
+        # encode_file_to_base64(r"B:\path\to\img_2.png"),
+        # "https://image.can/also/be/a/http/url.png",
+    ]
+
+    batch_size = 1
+    payload = {
+        "prompt": prompt,
+        "seed": -1,
+        "steps": 20,
+        "width": 512,
+        "height": 512,
+        "denoising_strength": 0.58,
+        # "denoising_strength": 0.78,
+        "cfg_scale": 7,
+        "sampler_name": "DPM++ 2M Karras",
+        "n_iter": 1,
+        "init_images": init_images,
+        "batch_size": batch_size if len(init_images) == 1 else len(init_images),
+        "alwayson_scripts": {
+            "Refiner": {
+                "args": [
+                    True,
+                    # "sd_xl_refiner_1.0",
+                    "v1-5-pruned-emaonly.safetensors [6ce0161689]",
+                    0.5
+                ]
+            }
+        }
+    }
+    # if len(init_images) > 1 then batch_size should be == len(init_images)
+    # else if len(init_images) == 1 then batch_size can be any value int >= 1
+    return call_img2img_api(filename,**payload)
 
 
 

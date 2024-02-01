@@ -248,7 +248,8 @@
             <div class="text-right text-md text-gray-400">{{ iData.tag }}</div>
 
             <div class="grid grid-cols-2 gap-4">
-              <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+              
+              <a href="/revision/?genimgid={{ iData.id}}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</a>
               <a href="{% url 'Budget' genimgid=iData.id %}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
             </div>
             <div class="text-left text-xs mb-4">
