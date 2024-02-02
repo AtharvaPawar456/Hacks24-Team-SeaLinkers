@@ -32,6 +32,8 @@ urlpatterns = [
 
 
 
+    path('convert_image_to_svg/<int:myid>/', views.convert_image_to_svg, name='convert_image_to_svg'),
+
 
 
 

@@ -6,10 +6,10 @@ import random
 import os
 import requests
 import json
-import ast
-from ultralytics import YOLO
+import ast, subprocess, re
+# from ultralytics import YOLO
 
-from IPython.display import display, Image
+# from IPython.display import display, Image
 
 from django.utils import timezone
 from fuzzywuzzy import fuzz, process
@@ -132,37 +132,37 @@ def dashboard_v2(request, proj_name):
     return render(request, 'inhome_app/index.html', context)
 
 
-def imagedetection(path):
-    with open('output.txt', 'w') as file:
-    # Run the yolo command and redirect both stdout and stderr to the file
-        command = f"yolo task=detect mode=predict model=yolov8n.pt conf=0.25 source={path} save=True"
-        process = subprocess.Popen(command, shell=True, stdout=file, stderr=subprocess.STDOUT, text=True)
+# def imagedetection(path):
+#     with open('output.txt', 'w') as file:
+#     # Run the yolo command and redirect both stdout and stderr to the file
+#         command = f"yolo task=detect mode=predict model=yolov8n.pt conf=0.25 source={path} save=True"
+#         process = subprocess.Popen(command, shell=True, stdout=file, stderr=subprocess.STDOUT, text=True)
 
-        # Wait for the command to complete
-        process.wait()
-    with open('output.txt', 'r') as file:
-        text=file.read()
+#         # Wait for the command to complete
+#         process.wait()
+#     with open('output.txt', 'r') as file:
+#         text=file.read()
 
 
-    # Define a regular expression pattern to extract detected objects
-    pattern = re.compile(r'image \d+/\d+ .*: \d+x\d+ (.+)')
-    matches = pattern.findall(text)
+#     # Define a regular expression pattern to extract detected objects
+#     pattern = re.compile(r'image \d+/\d+ .*: \d+x\d+ (.+)')
+#     matches = pattern.findall(text)
 
-    # Extracted objects are in the first capturing group of the pattern
-    objects={}
-    if matches:
-        detected_objects = matches[0].split(', ')
-        print("Detected Objects:")
-        for obj in detected_objects:
-            print(obj)
-            if any(map(str.isdigit, obj[1:])):
-                pass
-            else: 
-                objects[obj[1:]]=obj[0]
-    else:
-        print("No objects detected.")
-        objects["Objects"]="None"
-    return objects
+#     # Extracted objects are in the first capturing group of the pattern
+#     objects={}
+#     if matches:
+#         detected_objects = matches[0].split(', ')
+#         print("Detected Objects:")
+#         for obj in detected_objects:
+#             print(obj)
+#             if any(map(str.isdigit, obj[1:])):
+#                 pass
+#             else: 
+#                 objects[obj[1:]]=obj[0]
+#     else:
+#         print("No objects detected.")
+#         objects["Objects"]="None"
+#     return objects
 
 @login_required
 def Budget(request, genimgid):
