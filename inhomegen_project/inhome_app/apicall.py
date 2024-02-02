@@ -7,11 +7,11 @@ import os
 
 webui_server_url = 'http://127.0.0.1:7860'
 
-out_dir = 'static/inhome_app/generatedimg/'
-out_dir_t2i = os.path.join(out_dir, 'txt2img')
-out_dir_i2i = os.path.join(out_dir, 'img2img')
-os.makedirs(out_dir_t2i, exist_ok=True)
-os.makedirs(out_dir_i2i, exist_ok=True)
+out_dir = 'inhome_app/static/inhome_app/generatedimg/'
+# out_dir_t2i = os.path.join(out_dir, 'txt2img')
+# out_dir_i2i = os.path.join(out_dir, 'img2img')
+# os.makedirs(out_dir_t2i, exist_ok=True)
+# os.makedirs(out_dir_i2i, exist_ok=True)
 
 
 def timestamp():
@@ -39,11 +39,11 @@ def call_api(api_endpoint, **payload):
     return json.loads(response.read().decode('utf-8'))
 
 
-def call_txt2img_api(**payload):
-    response = call_api('sdapi/v1/txt2img', **payload)
-    for index, image in enumerate(response.get('images')):
-        save_path = os.path.join(out_dir_t2i, f'txt2img-{timestamp()}-{index}.png')
-        decode_and_save_base64(image, save_path)
+# def call_txt2img_api(**payload):
+#     response = call_api('sdapi/v1/txt2img', **payload)
+#     for index, image in enumerate(response.get('images')):
+#         save_path = os.path.join(out_dir_t2i, f'txt2img-{timestamp()}-{index}.png')
+#         decode_and_save_base64(image, save_path)
 
 
 def call_img2img_api(filename,**payload):
@@ -52,6 +52,7 @@ def call_img2img_api(filename,**payload):
         # save_path = os.path.join(out_dir_i2i, f'img2img-{timestamp()}-{index}.png')
         save_path = out_dir+filename+".png"
         decode_and_save_base64(image, save_path)
+    print(save_path)
     return save_path
 
 

@@ -6,11 +6,13 @@ urlpatterns = [
     path("gallery/", views.gallery, name="gallery"),
     
     path("dashboard/", views.dashboard, name="dashboard"),
-    # path("dashboard_v2/", views.dashboard_v2, name="dashboard_v2"),
+    path("viewprojects/", views.viewprojects, name="viewprojects"),
     path('dashboard_v2/<str:proj_name>/', views.dashboard_v2, name='dashboard_v2'),
+
 
     path('Budget/<str:genimgid>/', views.Budget, name='Budget'),
 
+    path('revision/', views.revision, name='revision'),
 
     # path("upload_file/", views.upload_file, name="upload_file"),
 
@@ -23,6 +25,7 @@ urlpatterns = [
 
     # path("showresult/<int:myid>", views.showresult, name="showresult"),
 
+    path('convert_image_to_svg/<int:myid>/', views.convert_image_to_svg, name='convert_image_to_svg'),
 
     path('user_login/',      views.user_login,     name='user_login'),
     path('user_logout/',     views.user_logout,    name='user_logout'),

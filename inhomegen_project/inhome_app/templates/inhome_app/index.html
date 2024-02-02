@@ -67,6 +67,13 @@
         <br />
 
         <div class="mt-6">
+          <button style="padding: 10px; background-color: rgb(0, 0, 96); border-radius: 15px;" id="startRecording">Start</button>
+          <button style="padding: 10px; background-color: rgb(0, 0, 96); border-radius: 15px;" id="stopRecording" disabled>Stop</button>
+          <br/>
+          <audio id="audioPlayer" controls></audio>
+        </div>
+    
+        <div class="mt-6">
           <label for="prompt" class="mt-6 text-yellow-500"
             ><i class="fa-solid fa-terminal mr-2 text-green-400"></i
             >Prompt:</label
@@ -248,7 +255,8 @@
             <div class="text-right text-md text-gray-400">{{ iData.tag }}</div>
 
             <div class="grid grid-cols-2 gap-4">
-              <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+              
+              <a href="/revision/?genimgid={{ iData.id}}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</a>
               <a href="{% url 'Budget' genimgid=iData.id %}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
             </div>
             <div class="text-left text-xs mb-4">
@@ -270,6 +278,65 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+
+// for audio input
+const startRecordingButton = document.getElementById('startRecording');
+            const stopRecordingButton = document.getElementById('stopRecording');
+            const audioPlayer = document.getElementById('audioPlayer');
+            
+            let mediaRecorder;
+            let audioChunks = [];
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function (stream) {
+                    mediaRecorder = new MediaRecorder(stream);
+
+                    mediaRecorder.ondataavailable = function (event) {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                        }
+                    };
+
+                    mediaRecorder.onstop = function () {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        const audioUrl = URL.createObjectURL(audioBlob);
+                        audioPlayer.src = audioUrl;
+
+                        // Send the audio blob to the Flask server (replace with your server URL)
+                        sendAudioToServer(audioBlob);
+
+                        audioChunks = [];
+                    };
+                })
+                .catch(function (error) {
+                    console.error('Error accessing microphone:', error);
+                });
+
+            startRecordingButton.addEventListener('click', function () {
+                mediaRecorder.start();
+                startRecordingButton.disabled = true;
+                stopRecordingButton.disabled = false;
+            });
+
+            stopRecordingButton.addEventListener('click', function () {
+                mediaRecorder.stop();
+                startRecordingButton.disabled = false;
+                stopRecordingButton.disabled = true;
+            });
+
+            function sendAudioToServer(audioBlob) {
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+
+                fetch('/upload-audio', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => console.log('Server response:', data))
+                .catch(error => console.error('Error sending audio to server:', error));
+            }
+
       // Get the button and hidden content elements
       var toggleButton = document.getElementById('toggleButton');
       var hiddenContent = document.getElementById('hiddenContent');

@@ -1,0 +1,134 @@
+{% extends 'inhome_app/base.html' %} {% block title %}inHomeGen | Revision{% endblock %}
+<div>{% block content %} {% load static %}</div>
+
+<!-- Body -->
+<section class="grid grid-cols-4 gap-4 mt-20">
+  <!-- Right Side : prompt input-->
+  <div class="border text-gray-400 p-4">
+    <div class="text-center text-xl text-yellow-500 font-bold">
+      <i class="fa-solid fa-image mr-2"></i> text2img
+    </div>
+
+    <div class="p-4 text-xl mt-4 border rounded-md">
+      <div class="mb-2 text-yellow-500 text-center">
+        <i class="fa-solid fa-layer-group mr-2"></i>Project Details
+      </div>
+
+      <form action="{% url 'revision' %}" method="POST" class="px-2">
+        {% csrf_token %}
+
+        <!-- project name -->
+        <label
+          for="proj_name"
+          class="block mb-2 text-sm font-medium text-gray-400"
+          >Enter Project Name:</label
+        >
+        <input
+          type="text"
+          id="text"
+          name="proj_name"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1"
+          placeholder="dream interior"
+          value="{{ imgData.projName }}"
+          required
+        />
+        <input
+          type="text"
+          id="text"
+          name="genimgid"
+          class="hidden"
+          value="{{ genimgid }}"
+          required
+        />
+
+ 
+
+        <div class="mt-6">
+          <label for="prompt" class="mt-6 text-yellow-500"
+            ><i class="fa-solid fa-terminal mr-2 text-green-400"></i
+            >Prompt:</label
+          > 
+          <i class="fa-solid fa-microphone text-gray-600 hover:text-blue-400"></i>
+          <textarea
+          id="prompt"
+          name="prompt"
+          rows="4"
+          class="rounded bg-black border mt-2 text-gray-400 p-1 w-full text-sm hover:border-yellow-400"
+          placeholder="prompt here"
+        >{{ imgData.prompt }}</textarea>
+
+          <!-- Suggestions -->
+
+
+
+        </div>
+
+        <input
+          type="submit"
+          value="Generate"
+          class="border mt-10 w-full mx-auto rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-black font-bold hover:bg-gradient-to-r hover:from-cyan-500 hover:to-blue-500"
+        />
+      </form>
+    </div>
+  </div>
+
+  <!-- Left side : Gen output -->
+  <div class="col-span-3 border">
+    <!-- Season -->
+    <section class="text-gray-400" id="software">
+      <div
+        id="seasonalItems"
+        class="grid grid-cols-1 md:grid-cols-4 gap-4 px-6 pb-6"
+      >
+        {% if imgData %} 
+
+        <!-- Card -->
+        <div
+          class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400"
+        >
+          <img
+            src="{% static imgData.path  %}"
+            alt="genImg"
+            class="h-80 w-auto border-4 rounded-md mx-auto mb-4"
+          />
+          <!-- <div class="text-xl font-bold text-center">itemName</div> -->
+          <div class="my-4">
+            <div class="text-right text-md text-gray-400">{{ imgData.tag }}</div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-rotate-left mr-2"></i>Revision</div>
+              <a href="{% url 'Budget' genimgid=imgData.id %}" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>Budget</a>
+            </div>
+            <div class="text-left text-xs mb-4">
+              <b>Model : </b>{{ imgData.modelName }}
+            </div>
+            <div class="text-left text-xs">
+              <b>Prompt : <br /></b>{{ imgData.prompt }}
+            </div>
+            
+
+          </div>
+        </div>
+
+        {% endif %}
+      </div>
+    </section>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      // Get the button and hidden content elements
+      var toggleButton = document.getElementById('toggleButton');
+      var hiddenContent = document.getElementById('hiddenContent');
+
+      // Add a click event listener to the button
+      toggleButton.addEventListener('click', function () {
+          // Toggle the 'hidden' class on the content
+          hiddenContent.classList.toggle('hidden');
+
+      });
+  });
+</script>
+
+{% endblock %}

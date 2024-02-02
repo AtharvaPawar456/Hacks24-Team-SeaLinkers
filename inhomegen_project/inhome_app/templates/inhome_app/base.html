@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     {% load static %}
 
-    <link rel="icon" type="image/png" href="{% static 'inhome_app\setup\logo.png' %}">
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'inhome_app\setup\logo.png' %}"
+    />
 
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.1/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
 
@@ -17,84 +23,105 @@
     <script src="{% static 'inhome_app\setup\tailwindcss.js' %}"></script>
 
     <style>
-        .body-container {
-            height: 27rem;
-            overflow-y: auto;
-            scrollbar-width: thin; /* Firefox */
-            scrollbar-color: #656161 #686464; /* Firefox */
-    
-            /* Webkit (Chrome, Safari) */
-            &::-webkit-scrollbar {
-                width: 10px;
-            }
-    
-            &::-webkit-scrollbar-thumb {
-                background-color: #555353;
-            }
-    
-            &::-webkit-scrollbar-track {
-                background-color: #f0f0f0;
-            }
-        }
+      .body-container {
+          height: 27rem;
+          overflow-y: auto;
+          scrollbar-width: thin; /* Firefox */
+          scrollbar-color: #656161 #686464; /* Firefox */
 
-        {% block css %} {% endblock %}
+          /* Webkit (Chrome, Safari) */
+          &::-webkit-scrollbar {
+              width: 10px;
+          }
 
+          &::-webkit-scrollbar-thumb {
+              background-color: #555353;
+          }
+
+          &::-webkit-scrollbar-track {
+              background-color: #f0f0f0;
+          }
+      }
+
+      {% block css %} {% endblock %}
     </style>
 
     <!-- <title>inHomeGen</title> -->
     <title>{% block title %}{% endblock %}</title>
-
-</head>
-<body class="body-container bg-black font-mono">
-    
+  </head>
+  <body class="body-container bg-black font-mono">
     <!-- Navbar - fixed -->
     <section class="font-mono z-50">
-        <nav class="fixed z-50 bg-black top-0 left-0 w-full py-2 px-4 flex items-center justify-between border shadow-md">
-            <!-- Brand Logo and Name on the Left -->
-            <a class="flex items-center space-x-2" href="#">
-              <img src="{% static 'inhome_app\setup\logo.png' %}" alt="Logo" class="h-12 w-12 rounded-full border-2"> 
-                <!-- Adjust height and width as needed -->
-              <span class="text-2xl font-bold text-gray-200 hover:text-gray-400">inHomeGen</span>
-            </a>
-        
-            <!-- Tabs on the Right -->
-            <div class="flex items-center space-x-10">
-              <!-- <a href="{% url 'gallery' %}" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Projects</a> -->
-              <a href="{% url 'gallery' %}" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Gallary</a>
-              <a href="{% url 'dashboard' %}" class="text-xl text-black font-bold hover:underline border p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">Generator</a>
-              <a href="#" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Support</a>
-            
-              {% if user.is_authenticated %}
-              <a href="{% url 'user_logout' %}" class="col-span-2">
-                <div
-                  class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-                >
-                  <i class="fa-solid fa-user"></i> {{ user.username |title }}
-                  <i class="fa-solid fa-right-from-bracket ml-2"></i>
-                </div>
-              </a>
-              {% else %}
-              <div></div>
-              <div></div>
-              <a href="{% url 'user_login' %}">
-                <div
-                  class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-                >
-                  <i class="fa-solid fa-user"></i> Login
-                </div>
-              </a>
-              {% endif %}
-            </div>
+      <nav
+        class="fixed z-50 bg-black top-0 left-0 w-full py-2 px-4 flex items-center justify-between border shadow-md"
+      >
+        <!-- Brand Logo and Name on the Left -->
+        <a class="flex items-center space-x-2" href="#">
+          <img
+            src="{% static 'inhome_app\setup\logo.png' %}"
+            alt="Logo"
+            class="h-12 w-12 rounded-full border-2"
+          />
+          <!-- Adjust height and width as needed -->
+          <span class="text-2xl font-bold text-gray-200 hover:text-gray-400"
+            >inHomeGen</span
+          >
+        </a>
 
-            <!-- Tabs on the Right - responsive -->
-            <!-- <div class="hidden md:flex items-center space-x-10">
+        <!-- Tabs on the Right -->
+        <div class="flex items-center space-x-10">
+          <a
+            href="{% url 'viewprojects' %}"
+            class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400"
+            >Projects</a
+          >
+          <a
+            href="{% url 'gallery' %}"
+            class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400"
+            >Gallery</a
+          >
+          <a
+            href="{% url 'dashboard' %}"
+            class="text-xl text-black font-bold hover:underline border p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500"
+            >Generator</a
+          >
+          <a
+            href="#"
+            class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400"
+            >Support</a
+          >
+
+          {% if user.is_authenticated %}
+          <a href="{% url 'user_logout' %}" class="col-span-2">
+            <div
+              class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
+            >
+              <i class="fa-solid fa-user"></i> {{ user.username |title }}
+              <i class="fa-solid fa-right-from-bracket ml-2"></i>
+            </div>
+          </a>
+          {% else %}
+          <div></div>
+          <div></div>
+          <a href="{% url 'user_login' %}">
+            <div
+              class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
+            >
+              <i class="fa-solid fa-user"></i> Login
+            </div>
+          </a>
+          {% endif %}
+        </div>
+
+        <!-- Tabs on the Right - responsive -->
+        <!-- <div class="hidden md:flex items-center space-x-10">
                 <a href="#software" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
                 <a href="#hardware" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
                 <a href="#contact" class="text-xl text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
             </div> -->
 
-           <!-- Mobile Menu Toggle (Hamburger Icon) -->
-            <!-- <div class="md:hidden">
+        <!-- Mobile Menu Toggle (Hamburger Icon) -->
+        <!-- <div class="md:hidden">
             <button id="mobileMenuToggle" class="text-xl text-gray-600 hover:text-gray-900">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
@@ -102,25 +129,23 @@
             </button>
             </div> -->
 
-          <!-- Mobile Menu -->
-          <!-- <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white py-2 px-4 shadow-md">
+        <!-- Mobile Menu -->
+        <!-- <div id="mobileMenu" class="hidden md:hidden absolute top-full left-0 right-0 bg-white py-2 px-4 shadow-md">
               <a href="#software" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Software-Projects</a>
               <a href="#hardware" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Hardware-Projects</a>
               <a href="#contact" class="block text-sm text-gray-600 font-bold hover:underline hover:text-gray-900">Contact</a>
           </div> -->
-
-          </nav>
+      </nav>
     </section>
 
     <!-- main content -->
     {% block content %}{% endblock %}
 
-    
-
     <!-- Footer -->
     <section class="text-xl px-2 py-2 md:px-20">
-        <div class="text-center font-bold text-gray-400 my-1"><i class="fa-regular fa-copyright mr-2"></i>inHomeGen | 2024</div>
+      <div class="text-center font-bold text-gray-400 my-1">
+        <i class="fa-regular fa-copyright mr-2"></i>inHomeGen | 2024
+      </div>
     </section>
-
-</body>
+  </body>
 </html>

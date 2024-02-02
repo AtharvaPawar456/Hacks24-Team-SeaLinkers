@@ -1,102 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- 600 seconds = 10 minutes -->
-    <!-- <meta http-equiv="refresh" content="20" /> -->
-    
-    {% load static %}
-
-    <link rel="icon" type="image/png" href="{% static 'inhome_app\setup\logo.png' %}">
-
-    <script src="{% static 'inhome_app\setup\tailwindcss.js' %}"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  
-    <!-- <script src="{% static 'bandapp\setup\Chart.min.js' %}" charset="utf-8" ></script> -->
-    <!-- <link rel="stylesheet" href="{% static 'bandapp\setup\Chart.min.css' %}" /> -->
-
-
-    <title>HealthyBand | View Rooms</title>
-</head>
-<body class="body-container bg-black font-mono">
-
-
-    <!-- Navbar - fixed -->
-    <section class="font-mono z-50">
-      <nav class="fixed z-50 bg-black top-0 left-0 w-full py-2 px-4 flex items-center justify-between border shadow-md">
-          <!-- Brand Logo and Name on the Left -->
-          <a class="flex items-center space-x-2" href="#">
-            <img src="{% static 'inhome_app\setup\logo.png' %}" alt="yerunkar corner Logo" class="h-12 w-12 rounded-full border-2"> 
-              <!-- Adjust height and width as needed -->
-            <span class="text-2xl font-bold text-gray-200 hover:text-gray-400">inHomeGen</span>
-          </a>
-      
-          <!-- Tabs on the Right -->
-          <div class="flex items-center space-x-10">
-            <a href="#gallery" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Gallary</a>
-            <a href="#generator" class="text-xl text-black font-bold hover:underline border p-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500">Generator</a>
-            <a href="#support" class="text-xl text-gray-200 font-bold hover:underline hover:text-gray-400">Support</a>
-          
-            {% if user.is_authenticated %}
-            <a href="{% url 'user_logout' %}" class="col-span-2">
-              <div
-                class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-              >
-                <i class="fa-solid fa-user"></i> {{ user.username |title }}
-                <i class="fa-solid fa-right-from-bracket ml-2"></i>
-              </div>
-            </a>
-            {% else %}
-            <div></div>
-            <div></div>
-            <a href="{% url 'user_login' %}">
-              <div
-                class="text-xl py-3 h-16 font-bold text-center text-yellow-600 hover:text-yellow-400"
-              >
-                <i class="fa-solid fa-user"></i> Login
-              </div>
-            </a>
-            {% endif %}
-          </div>
-
-        </nav>
-  </section>
+{% extends 'inhome_app/base.html' %} {% block title %}inHomeGen | View Projects{% endblock %}
+<div>{% block content %} {% load static %}</div>
 
   <!-- Add / Select Project -->
   <section class="mt-24 text-gray-300 mb-10">
       <div class="grid grid-cols-4 gap-4 mx-10">
 
-        <div class="border rounded p-10 text-center hover:bg-gray-600">
-          <div><i class="fa-solid fa-square-plus text-[100px] mb-10"></i></div>
+      
 
-          <form class="max-w-sm mx-auto px-2" method="post" action="{% url 'addroom' %}">
-            {% csrf_token %}
-            <input class="hidden" type="text" name="user_name" value="{{ request.user.username }}" required>
-            <input class="hidden" type="text" name="proj_name" value="{{ proj_name }}" required>
-    
-            <!-- node name -->
-            <div class="mb-5">
-            <label for="proj_name" class="block mb-2 text-sm font-medium text-gray-400 ">Enter Project Name:</label>
-            <input type="text" id="text" name="room_name"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="dream interior" required>
-            </div>
-    
-            
-            <button type="submit" 
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-10 py-2.5 text-center">
-                ADD
-            </button>
-          </form>
-        </div>
-
-        {% if allViewPlace %}
-          {% for projData in viewJson %}
+        {% if imgData %}
+          {% for projData in imgData %}
           
               <!-- Node Card Starts -->
-              <a href="#" class="hover:bg-yellow-800 hover:text-black border shadow rounded-xl p-10">
+              <a href="/dashboard_v2/{{projData}}" class="hover:bg-yellow-800 hover:text-black border shadow rounded-xl p-10">
                 <div class="">
                   <div class="text-center text-2xl mb-6 font-bold my-20">{{ projData | title }}</div>
                 </div>
@@ -113,23 +28,4 @@
       </div>
   </section>
 
-
-
-
-    
-    <!-- Node Card Ends -->
-    <section class="text-gray-300">
-
-
-            
-    </section>
-
-    
-        
-
-
-
-
-
-</body>
-</html>
+{% endblock %}

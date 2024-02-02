@@ -18,7 +18,7 @@ class ImgDetails(models.Model):
     path = models.CharField(max_length=300, default="")
 
     objectsinit = models.CharField(max_length=1000, default="")
-    tag = models.CharField(max_length=20, default="")
+    tag = models.FloatField(max_length=20, default=0.0)
 
     
     pub_date = models.DateField()

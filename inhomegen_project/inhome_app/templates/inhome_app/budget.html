@@ -5,17 +5,17 @@
     <div class="rounded-md border border-gray-400 my-2 text-gray-400 md:mt-6 py-4 px-2 hover:border-yellow-400 pt-20"
     >
     
-        <div class="grid grid-cols-4 gap-4">
+        <div class="grid grid-cols-2 gap-4 mx-10">
             <img
             src="{% static imgData.path  %}"
             alt="genImg"
-            class="h-80 w-auto border-4 rounded-md mx-auto mb-4"
+            class="h-[500px] w-auto border-4 rounded-md mx-auto mb-4"
             />
-            <div class="text-xl font-bold text-center col-span-3 pt-6">
+            <div class="text-xl font-bold pt-6">
                 <div class=""><i class="fa-solid fa-layer-group mr-2 mb-4"></i>Detected Object </div>
                 {% if objects_init_list %}
                     {% for objData in objects_init_list %}
-                    <div>
+                    <div class="text-left">
                         {{  forloop.counter }} : {{ objData | title }}
                     </div>
                     {% endfor %}
@@ -36,20 +36,20 @@
       
               <!-- Card -->
               <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400" >
-                <img src="{% static imgData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
+                <img src="https://images-na.ssl-images-amazon.com/images/I/810YuvMKhkL.jpg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
 
                 <div class="my-4">
                   
                   <div class="grid grid-cols-2 gap-4">
                       <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>9000</a>
                       
-                      <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-cart-shopping mr-2"></i>Buy</div>
+                      <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-cart-shopping mr-2"></i><a href="https://www.amazon.in/AmazonBasics-Back-Mesh-Chair-Black/dp/B00IIFW2L4">Buy</a></div>
                   </div>
                   <div class="text-left text-xs mb-4">
-                    <b>Product : </b> Glass Table
+                    <b>Product : </b> Chair
                   </div>
                   <div class="text-left text-xs">
-                    <b>Description :</b> this is a beautifull carved glass table with old texture
+                    <b>Description :</b> Comfortable seating furniture
                   </div>
       
                 </div>
@@ -57,20 +57,20 @@
       
               <!-- Card -->
               <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400" >
-                <img src="{% static imgData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
+                <img src="https://m.media-amazon.com/images/I/81FjmmpkGGL._AC_UF1000,1000_QL80_.jpg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
 
                 <div class="my-4">
                   
                   <div class="grid grid-cols-2 gap-4">
-                      <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>9000</a>
+                      <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>15000</a>
                       
                       <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-cart-shopping mr-2"></i>Buy</div>
                   </div>
                   <div class="text-left text-xs mb-4">
-                    <b>Product : </b> Glass Table
+                    <b>Product : </b> Sofa
                   </div>
                   <div class="text-left text-xs">
-                    <b>Description :</b> this is a beautifull carved glass table with old texture
+                    <b>Description :</b> this is a beautiful sofa for entire family
                   </div>
       
                 </div>
@@ -78,25 +78,46 @@
       
               <!-- Card -->
               <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400" >
-                <img src="{% static imgData.path  %}" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
+                <img src="https://m.media-amazon.com/images/I/71kjeOuSuHL._AC_UF894,1000_QL80_.jpg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" />
 
                 <div class="my-4">
                   
                   <div class="grid grid-cols-2 gap-4">
-                      <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>9000</a>
+                      <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>3000</a>
                       
                       <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-cart-shopping mr-2"></i>Buy</div>
                   </div>
                   <div class="text-left text-xs mb-4">
-                    <b>Product : </b> Glass Table
+                    <b>Product : </b> Decorative plants
                   </div>
                   <div class="text-left text-xs">
-                    <b>Description :</b> this is a beautifull carved glass table with old texture
+                    <b>Description :</b> Beautiful potted plants for greenery in the house
                   </div>
       
                 </div>
               </div>
       
+              <!-- Card -->
+              <div class="rounded-md border border-gray-400 my-2 md:mt-6 py-4 px-2 hover:border-yellow-400" >
+                <!-- <img src="https://m.media-amazon.com/images/I/71kjeOuSuHL._AC_UF894,1000_QL80_.jpg" alt="genImg" class="h-80 w-auto border-4 rounded-md mx-auto mb-4" /> -->
+
+                <div class="my-4">
+                  <center><h2>Total Cost</h2></center>
+                  <div class="grid  gap-4">
+                      <a href="" class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-indian-rupee-sign mr-2"></i>27000</a>
+                      
+                      <!-- <div class="text-left text-xs text-yellow-400 text-center p-2 border my-4 rounded-md hover:underline hover:bg-gray-800"><i class="fa-solid fa-cart-shopping mr-2"></i>Buy</div> -->
+                  </div>
+                  <div class="text-left text-xs mb-4">
+                    <b>To buy all recommended products please use the links provided. We will provide greatest discount for them. </b> 
+                  </div>
+                  <div class="text-left text-xs">
+                    <b>Description :</b> Beautiful potted plants for greenery in the house
+                  </div>
+      
+                </div>
+              </div>
+
             </div>
           </section>
 
