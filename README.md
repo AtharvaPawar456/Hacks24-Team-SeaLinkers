@@ -63,11 +63,11 @@ We used Dreambooth's stable diffuser model for image generation and a raw stable
 We started by developing individual project components and gradually integrated them. Despite facing challenges and errors during integration, the learning curve was invaluable. We are proud of the progress made within the 24-hour hackathon timeframe.
 
 Feel free to explore the codebase and share your thoughts! 🚀
-## Implewmentation Details
+## Implementation Details
 <img width="1250" alt="Screenshot 2024-02-01 095539" src="https://github.com/shaunpimenta/Hacks24-Team-SeaLinkers/assets/83634457/38abac95-3b8d-417b-8bfd-32e15620fbb2">
-## Identifcation of Objects
+Identifcation of Objects
 <img width="1258" alt="Screenshot 2024-02-01 095616" src="https://github.com/shaunpimenta/Hacks24-Team-SeaLinkers/assets/83634457/40fc08c4-9379-41d0-af5c-cf80dbd225ab">
-## Changing objects within the image
+Changing objects within the image
 <img width="698" alt="Screenshot 2024-02-01 095655" src="https://github.com/shaunpimenta/Hacks24-Team-SeaLinkers/assets/83634457/d956541c-76d2-4315-b98e-4ccf2663cf61">
 
 
